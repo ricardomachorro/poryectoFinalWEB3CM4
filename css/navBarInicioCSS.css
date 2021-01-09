@@ -13,8 +13,12 @@ and open the template in the editor.
 .navBarInicio{
     
     background-color:#3fbaa0;
-    
         
+}
+
+.imagenNavBarInicio{
+   height:40px;
+   width: 40px;
 }
 
 .textoNavBarInicio{

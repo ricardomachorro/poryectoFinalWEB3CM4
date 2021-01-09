@@ -12,6 +12,11 @@ and open the template in the editor.
     background-color:#3fbaa0;    
 }
 
+.imagenNavBarInicio{
+   height:40px;
+   width:40px;
+}
+
 .textoNavBarGeneral{
     font-family:sans-serif;
     font-size:20px;

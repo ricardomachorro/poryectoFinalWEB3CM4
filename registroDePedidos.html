@@ -23,10 +23,11 @@ and open the template in the editor.
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active textoNavBarGeneral" href="index.html">Inicio <span class="sr-only">(current)</span></a>
-                    <a class="nav-link textoNavBarGeneral" href="ingresoBeneficiados.html" >Ingreso beneficiados</a>
-                    <a class="nav-link textoNavBarGeneral" href="registroBeneficiados.html">Registro beneficiados</a>
-                    <a class="nav-link textoNavBarGeneral" href="ingresoAdmi.html" >Ingreso administradores</a>
-                    <a class="nav-link textoNavBarGeneral" href="registroAdmi.html">Registro administradores</a>
+                    <a class="nav-link textoNavBarGeneral" href="registroDePedidos.html" >Registro pedidos de beneficios(medicamentos)</a>
+                    <a class="nav-link textoNavBarGeneral" href="" >Hacer nuevo pedido de  medicamento</a>
+                    <a class="nav-link textoNavBarGeneral" href="" >Actualizar datos del beneficiado</a>
+                    <a class="nav-link textoNavBarGeneral" href="" >Eliminar cuenta</a>
+                    <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>
@@ -46,29 +47,26 @@ and open the template in the editor.
                     <tr>
                         <th>ID Pedido</th>
                         <th>Nombre comercial</th>
-                        <th>Laboratorio</th>
+                      <!--  <th>Laboratorio</th>
                         <th>Cantidad</th>
-                        <th>Fecha del pedidio</th>
+                        <th>Fecha del pedidio</th>-->
                         <th>Fecha de entrega</th>
-                        <th>Ver pedido</th>
-                        <th>Recibo de pedido</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th  colspan="4">Opcciones</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
                    
-                        <tr>
-                           <td>ID Pedido</td>
+                         <td>ID Pedido</td>
                         <td>Nombre comercial</td>
-                        <td>Laboratorio</td>
+                      <!--  <td>Laboratorio</td>
                         <td>Cantidad</td>
-                        <td>Fecha del pedidio</td>
+                        <td>Fecha del pedidio</td>-->
                         <td>Fecha de entrega</td>
-                        <td>Ver pedido</td>
-                        <td>Recibo de pedido</td>
-                        <td>Editar</td>
-                        <td>Eliminar</td>
+                        <td><button type="button"  class="btn btn-dark">Ver pedido</button></td>
+                        <td><button type="button" class="btn btn-primary">Comprobante de pedido</button></td>
+                        <td><button type="button" class="btn btn-success">Editar pedido</button></td>
+                        <td><button  class="btn btn-danger">Cancelar pedido</button></td>
                         </tr>   
                   
                 </tbody>

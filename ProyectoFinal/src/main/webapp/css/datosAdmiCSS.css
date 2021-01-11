@@ -1,0 +1,17 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9 ene 2021, 12:01:10
+    Author     : Ricardo Alberto
+*/
+
+.formularioDatosAdm{
+    margin-top: 122px;
+    margin-bottom: 122px;
+    padding: 30px;
+    background-color:#fff;
+    border-radius:5px;
+}

@@ -12,7 +12,7 @@
         <title>registro de administradores</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" >
         <link rel="stylesheet" href="css/navBarInicioCSS.css">
-        <link rel="stylesheet" href="css/indexCSS.css">
+        <link rel="stylesheet" href="css/registroAdmiCSS.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg  navBarInicio">
@@ -30,6 +30,31 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            <form class="formularioRegAdm">
+                <h2>Registro Administrador</h2>
+                <div class="form-group">
+                    <label for="txtNombre">Nombre</label>
+                    <input type="text" class="form-control" id="txtNombre" >
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="txtPassword">
+                </div>
+                <div class="form-group">
+                    <label for="selEstado">Estado</label>
+                    <select class="form-control">
+                        <option>Seleccione estado</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="txtClave">Clave</label>
+                    <input type="text" class="form-control" id="txtClave" >
+                </div>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </form>
+        </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

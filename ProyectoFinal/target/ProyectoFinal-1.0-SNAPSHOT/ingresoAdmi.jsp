@@ -15,7 +15,7 @@
         <title>Ingreso Administradores</title>
     </head>
     <body>
-          <nav class="navbar navbar-expand-lg navBarInicio">
+        <nav class="navbar navbar-expand-lg navBarInicio">
             <a class="navbar-brand textoNavBarInicio" >Sistema de apoyos</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span ><img class="imagenNavBarInicio" src="img/lista.png"></span>
@@ -23,15 +23,15 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active textoNavBarInicio" href="index.html">Inicio <span class="sr-only">(current)</span></a>
-                   <a class="nav-link textoNavBarInicio" href="" >Ingreso beneficiados</a>
+                    <a class="nav-link textoNavBarInicio" href="" >Ingreso beneficiados</a>
                     <a class="nav-link textoNavBarInicio" href="ControladorPrincipal?accion=ingresoBeneficiados">Registro beneficiados</a>
                     <a class="nav-link textoNavBarInicio" href="ingresoAdmi.html" >Ingreso administradores</a>
-                   
+
                 </div>
             </div>
         </nav>
         <div class="container">
-            <form class="formularioIngAdmi" action="ControladorAdmi?accion=ingresoAdmi">
+            <form class="formularioIngAdmi" method="post" action="ControladorAdmi?accion=ingresoAdmi">
                 <h2>Ingreso administradores</h2>
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
@@ -44,6 +44,9 @@
                 <div class="form-group">
                     <label for="txtClave">Clave</label>
                     <input type="text" class="form-control" name="txtClave" id="txtClave">
+                </div>
+                <div class="form-group row">
+                    <p><c:out value="${mensaje}"/></p>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Ingresar</button>

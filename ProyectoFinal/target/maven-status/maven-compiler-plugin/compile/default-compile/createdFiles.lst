@@ -3,10 +3,12 @@ com\ipn\mx\modelo\dao\EstadoDAO.class
 com\ipn\mx\modelo\dto\VariantesApoyosDTO.class
 com\ipn\mx\utilerias\HibernateUtil.class
 com\ipn\mx\modelo\entidades\Estado.class
+com\ipn\mx\controlador\ControladorAdmi.class
 com\ipn\mx\controlador\ControladorPrincipal.class
 com\ipn\mx\modelo\dao\MunicipioDAO.class
 com\ipn\mx\modelo\dto\EstadoDTO.class
 com\ipn\mx\modelo\entidades\Pedidos.class
+com\ipn\mx\controlador\ControladorBeneficiario.class
 com\ipn\mx\modelo\dao\BeneficiadosDAO.class
 com\ipn\mx\modelo\entidades\Apoyos.class
 com\ipn\mx\modelo\entidades\Beneficiados.class

@@ -118,6 +118,8 @@ public class EstadoDAO {
            }
            return lista;
     }
+      
+   
 
  /*  private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultados = new ArrayList();

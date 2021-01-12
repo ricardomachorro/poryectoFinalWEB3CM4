@@ -31,16 +31,19 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioIngAdmi">
+            <form class="formularioIngAdmi" action="ControladorAdmi?accion=ingresoAdmi">
                 <h2>Ingreso administradores</h2>
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" >
-
+                    <input type="text" class="form-control" name="txtNombre" id="txtNombre" >
                 </div>
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword">
+                    <input type="password" class="form-control" name="txtPassword" id="txtPassword">
+                </div>
+                <div class="form-group">
+                    <label for="txtClave">Clave</label>
+                    <input type="text" class="form-control" name="txtClave" id="txtClave">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Ingresar</button>

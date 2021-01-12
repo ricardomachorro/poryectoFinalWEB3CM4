@@ -5,8 +5,8 @@
  */
 package com.ipn.mx.modelo.dao;
 
-import com.ipn.mx.modelo.dto.PedidosDTO;
-import com.ipn.mx.modelo.entidades.Pedidos;
+import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
+import com.ipn.mx.modelo.entidades.VariantesApoyos;
 import com.ipn.mx.utilerias.HibernateUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,9 +20,9 @@ import org.hibernate.query.Query;
  *
  * @author Ricardo Alberto
  */
-public class PedidosDAO {
+public class VariantesApoyosDAO {
     
-    public void create(PedidosDTO dto) throws SQLException {
+    public void create(VariantesApoyosDTO dto) throws SQLException {
       
         Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
            Transaction transaction=sesion.getTransaction();
@@ -38,7 +38,7 @@ public class PedidosDAO {
            }
     }
 
-     public void update(PedidosDTO dto) throws SQLException {
+     public void update(VariantesApoyosDTO dto) throws SQLException {
        
        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
            Transaction transaction=sesion.getTransaction();
@@ -55,7 +55,7 @@ public class PedidosDAO {
     }
 
 
-   public void delete(PedidosDTO dto) throws SQLException {
+   public void delete(VariantesApoyosDTO dto) throws SQLException {
       
        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
            Transaction transaction=sesion.getTransaction();
@@ -70,14 +70,14 @@ public class PedidosDAO {
            }
     }
 
-    public PedidosDTO read(PedidosDTO dto) throws SQLException {
+    public VariantesApoyosDTO read(VariantesApoyosDTO dto) throws SQLException {
       
        Session sesion=HibernateUtil.getSessionFactory().getCurrentSession();
            Transaction transaction=sesion.getTransaction();
            try{
                transaction.begin();
               
-                dto.setEntidad(sesion.get(dto.getEntidad().getClass(),dto.getEntidad().getIDPedido()));
+                dto.setEntidad(sesion.get(dto.getEntidad().getClass(),dto.getEntidad().getIDVarianteApoyo()));
              
               
              transaction.commit();
@@ -101,10 +101,10 @@ public class PedidosDAO {
               //int x;
               //Usuario u
               //
-               Query q= sesion.createQuery("from Pedidos p order by p.IDPedido");
-                for(Pedidos p:(List<Pedidos>) q.list()){
-                   PedidosDTO dto=new PedidosDTO();
-                   dto.setEntidad(p);
+               Query q= sesion.createQuery("from VariantesApoyos v order by v.IDVarianteApoyo");
+                for(VariantesApoyos e:(List<VariantesApoyos>) q.list()){
+                   VariantesApoyosDTO dto=new VariantesApoyosDTO();
+                   dto.setEntidad(e);
                    lista.add(dto);
                    
                 }
@@ -116,5 +116,4 @@ public class PedidosDAO {
            }
            return lista;
     }
-    
 }

@@ -28,9 +28,8 @@ public class VariantesApoyos implements Serializable {
     
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int IDVarianteApoyo;
     private int IDMunicipio;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IDApoyo;
     private String Laboratorio;
     private String NombreComercial;

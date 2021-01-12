@@ -61,7 +61,9 @@
                 </div>
                 <div class="form-group">
                     <label for="selEstado">Estado</label>
-                    <select class="form-control">
+                    <select value="0" 
+                            name="selectEstado" 
+                            id="selectEstado" class="form-control">
                         <option >Seleccione estado</option>
                         <c:forEach
                             var="dtoEstados"
@@ -72,12 +74,14 @@
                 </div>
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>
-                    <select class="form-control">
-                        <option >Seleccione municipio</option>
+                    <select class="form-control"
+                            id="selectMunicipio"
+                            name="selectMunicipio" class="form-control">
+                        <option IDEstado="0">Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipios"
                             items="${listaMunicipios}">
-                            <option  value="<c:out value="${dtoMunicipios.entidad.IDMunicipio}"/>" 
+                            <option hidden  value="<c:out value="${dtoMunicipios.entidad.IDMunicipio}"/>" 
                             IDEstado="<c:out value="${dtoMunicipios.entidad.IDEstado}"/>" >
                                 <c:out value="${dtoMunicipios.entidad.nombre}"/></option>
                         </c:forEach>
@@ -91,6 +95,19 @@
             </form>
         </div>
     </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         
+          $('#selectEstado').on('change', function(){
+               var valorEstado = $(this).val();
+                $('#selectMunicipio option[IDEstado='+valorEstado+']').removeAttr('hidden');
+                $('#selectMunicipio option[IDEstado!='+valorEstado+']').attr('hidden','hidden');
+                $("#selectMunicipio option[IDEstado='0']").removeAttr('hidden');
+          });
+         
+     });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>

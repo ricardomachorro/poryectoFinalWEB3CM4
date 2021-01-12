@@ -6,6 +6,7 @@
 package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.EstadoDAO;
+import com.ipn.mx.modelo.dto.EstadoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;

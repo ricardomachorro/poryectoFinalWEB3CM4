@@ -5,9 +5,17 @@
  */
 package com.ipn.mx.controlador;
 
+import com.ipn.mx.modelo.dao.ApoyosDAO;
 import com.ipn.mx.modelo.dao.EstadoDAO;
+import com.ipn.mx.modelo.dao.MunicipioDAO;
+import com.ipn.mx.modelo.dao.VariantesApoyosDAO;
+import com.ipn.mx.modelo.dto.ApoyosDTO;
 import com.ipn.mx.modelo.dto.EstadoDTO;
+import com.ipn.mx.modelo.dto.MunicipioDTO;
+import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
 import com.ipn.mx.modelo.entidades.Estado;
+import com.ipn.mx.modelo.entidades.Municipio;
+import com.ipn.mx.modelo.entidades.VariantesApoyos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -53,6 +61,7 @@ public class ControladorAdmi extends HttpServlet {
     
      private void ingresoPanelAdmi(HttpServletRequest request, HttpServletResponse response) {
             EstadoDAO estadoDao= new EstadoDAO();
+            EstadoDTO estadoDTO=new EstadoDTO();
             boolean usuarioPermitido=false;
         try {
             List<EstadoDTO> estadoLista=estadoDao.readAll();
@@ -60,6 +69,7 @@ public class ControladorAdmi extends HttpServlet {
                  if(estadoLista.get(i).getEntidad().getClave().equals((String) request.getParameter("txtClave"))){
                     if((estadoLista.get(i).getEntidad().getNombreUsuarioEncargado().equals((String) request.getParameter("txtNombre")))
                            && (estadoLista.get(i).getEntidad().getContra().equals((String) request.getParameter("txtPassword")))){
+                        estadoDTO=estadoLista.get(i);
                         usuarioPermitido=true;
                         break;
                     }
@@ -67,6 +77,31 @@ public class ControladorAdmi extends HttpServlet {
                  }
             }
             if(usuarioPermitido){
+                VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
+                List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
+                List<VariantesApoyosDTO> variantesApoyosSalida=varianteApoyosDao.readAll();
+                MunicipioDAO municipioDao=new MunicipioDAO();
+                List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
+                ApoyosDAO apoyoDao=new ApoyosDAO();
+                List<ApoyosDTO> listaApoyos=apoyoDao.readAll();
+             /*   List<MunicipioDTO> municipioLista=municipioDao.readAll();
+               List<MunicipioDTO> municipiosDelEstado;*/    
+               for(int i=0;i<variantesApoyosLista.size();i++){
+                  int IDMunicipio=variantesApoyosLista.get(i).getEntidad().getIDMunicipio();
+                  MunicipioDTO munEvaluar=new MunicipioDTO();
+                  munEvaluar.getEntidad().setIDMunicipio(IDMunicipio);
+                  munEvaluar=municipioDao.read(munEvaluar);
+                  if(munEvaluar.getEntidad().getIDEstado()!=estadoDTO.getEntidad().getIDEstado()){
+                      variantesApoyosSalida.remove(i);
+                  }
+               }
+              
+               request.setAttribute("listaVariantesApoyos",variantesApoyosSalida );
+               request.setAttribute("listaApoyos",listaApoyos );
+               request.setAttribute("listaMunicipios",listaMunicipios );
+               request.setAttribute("listaVariantesApoyosSize",variantesApoyosSalida.size());
+               request.setAttribute("listaApoyosSize",listaApoyos.size() );
+               request.setAttribute("listaMunicipiosSize",listaMunicipios.size() );
                RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
                
                rd.forward(request, response);

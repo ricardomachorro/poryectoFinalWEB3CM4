@@ -15,6 +15,8 @@ com\ipn\mx\modelo\entidades\Beneficiados.class
 com\ipn\mx\modelo\dto\ApoyosDTO.class
 com\ipn\mx\modelo\entidades\Municipio.class
 com\ipn\mx\modelo\dto\MunicipioDTO.class
+com\ipn\mx\modelo\dao\PedidosDAO.class
 com\ipn\mx\modelo\dto\BeneficiadosDTO.class
 com\ipn\mx\modelo\dao\ApoyosDAO.class
+com\ipn\mx\modelo\dao\VariantesApoyosDAO.class
 com\ipn\mx\modelo\dto\PedidosDTO.class

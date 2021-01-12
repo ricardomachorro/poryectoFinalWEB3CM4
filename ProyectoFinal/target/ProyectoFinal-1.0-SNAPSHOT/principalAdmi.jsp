@@ -38,6 +38,9 @@
                     <img class="imgOpccionesLista" src="img/mexico.png">
                     <img class="imgOpccionesLista" src="img/mujer.png">
                     <p class="card-text">Informe de los apoyos en los municipios</p>
+                     <p><c:out value="${listaVariantesApoyosSize}"/></p>
+            <p><c:out value="${listaApoyosSize}"/></p>
+            <p><c:out value="${listaMunicipiosSize}"/></p>
                     <a href="" class="card-link">Ver los apoyos mas solicitados por municipio</a>
                     <a href="" class="card-link">Generar reporte de beneficiados por municipio</a>
                 </div>
@@ -45,34 +48,37 @@
             <table class="table table-striped tablaPer">
                 <thead>
                     <tr>
-                        <th>ID Apoyo</th>
-                        <th>Nombre comercial</th>
-                        <th>Laboratorio</th>
+
                         <th>Municipio</th>
+                        <th>Apoyo</th>
+                        <th>Laboratorio</th>
+                        <th>Nombre comercial</th>
                         <!-- <th>Editar datos del apoyo</th>
                          <th>Eliminar apoyo</th>-->
                         <th colspan="3">Opcciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach
-                        var="dtoVariantesApoyos"
-                        items="${listaVariantesApoyos}">
                     
-                    <tr>
-                        <td>ID Apoyo</td>
-                        <td>Nombre comercial</td>
-                        <td>Laboratorio</td>
-                        <td>Municipio</td>
-                        <td><button type="button"  class="btn btn-dark">Ver datos apoyo</button></td>
+                    <c:forEach
+                            var="dtoVariantesApoyos"
+                            items="${listaVariantesApoyos}">
+                            <tr>
+                       <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
+                    <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
+                    <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
+                    <td><c:out value="${dtoVariantesApoyos.entidad.nombrecomercial}"/></td>
+                       <td><button type="button"  class="btn btn-dark">Ver datos apoyo</button></td>
                         <td><button type="button" class="btn btn-success">Editar</button></td>
-                        <td><button  class="btn btn-danger">Eliminar</button></td>
-                    </tr>   
-
-                </c:forEach>
+                        <td><button  class="btn btn-danger">Eliminar</button></td></tr>
+                    </c:forEach>
+                    
+               
 
                 </tbody>
             </table>  
+            
+           
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>

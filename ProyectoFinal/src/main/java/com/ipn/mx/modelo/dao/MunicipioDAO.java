@@ -11,6 +11,8 @@ import com.ipn.mx.utilerias.HibernateUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -77,7 +79,7 @@ public class MunicipioDAO {
            try{
                transaction.begin();
               
-                dto.setEntidad(sesion.get(dto.getEntidad().getClass(),dto.getEntidad().getIDEstado()));
+                dto.setEntidad(sesion.get(dto.getEntidad().getClass(),dto.getEntidad().getIDMunicipio()));
              
               
              transaction.commit();
@@ -117,4 +119,18 @@ public class MunicipioDAO {
            return lista;
     }
     
+      public static void main (String args[]){
+         MunicipioDTO mun=new MunicipioDTO();
+         MunicipioDAO dao=new MunicipioDAO();
+         mun.getEntidad().setIDMunicipio(30);
+        try {
+            int i=dao.read(mun).getEntidad().getIDEstado();
+            System.out.println(i);
+        } catch (SQLException ex) {
+            Logger.getLogger(MunicipioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+      
+      }
+      
 }

@@ -11,6 +11,8 @@ import com.ipn.mx.utilerias.HibernateUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -116,4 +118,21 @@ public class VariantesApoyosDAO {
            }
            return lista;
     }
+      
+       public static void main (String args[]){
+         VariantesApoyosDTO mun=new VariantesApoyosDTO();
+         VariantesApoyosDAO dao=new VariantesApoyosDAO();
+        
+        try {
+            List<VariantesApoyosDTO> apo=dao.readAll();
+            for(int i=0;i<apo.size();i++){
+              System.out.println(apo.get(i).getEntidad());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(VariantesApoyosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+         
+      
+      }
 }

@@ -459,6 +459,8 @@ insert into apoyos(componente) values ('Ibubrofeno');
 insert into apoyos(componente) values ('Simvastatina ');
 insert into apoyos(componente) values ('Efedrina');
 select * from apoyos;
+
+insert into variantesapoyos ();
 select * from beneficiados;
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)
 values('rick','1234','dsds',12,'ddsds',3);

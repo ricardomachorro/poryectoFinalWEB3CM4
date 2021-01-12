@@ -137,14 +137,9 @@ public class EstadoDAO {
          EstadoDAO dao=new EstadoDAO();
          Estado estado=new Estado();
          EstadoDTO dto=new EstadoDTO ();
-         estado.setNombre("Est1");
-         estado.setAbrev("est");
-         estado.setContra("ddd");
-         estado.setClave("ddds");
-         estado.setNombreUsuarioEncargado("ri");
-         dto.setEntidad(estado);
+        
          try {
-             dao.create(dto);
+             System.out.println(dao.readAll());
          } catch (SQLException ex) {
              Logger.getLogger(EstadoDAO.class.getName()).log(Level.SEVERE, null, ex);
          }

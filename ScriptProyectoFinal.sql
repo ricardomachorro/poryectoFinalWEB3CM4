@@ -49,7 +49,7 @@ CREATE table Beneficiados(
 /*drop table Beneficiados;*/
 
 create table Pedidos(
-  IDPedido serial not null,
+  IDPedido serial primary key,
   IDBeneficiado int not null,
   NombreComercial varchar(30) not null,
   Laboratorio varchar(30) not null,
@@ -63,12 +63,26 @@ create table Pedidos(
 
 /*drop table pedidos;*/
 
-create table VariantesApoyos(
+/*create table VariantesApoyos(
   IDMunicipio int not null,
   IDApoyo int not null,
   NombreComercial varchar(30) not null,
   Laboratorio varchar(30) not null,
   primary key(IDMunicipio,IDApoyo),
+  foreign key (IDApoyo)
+  references Apoyos( IDApoyo )
+  on update cascade on delete cascade,
+  foreign key (IDMunicipio)
+  references Municipio( IDMunicipio )
+  on update cascade on delete cascade
+);*/
+
+create table VariantesApoyos(
+   IDVarianteApoyo serial primary key,
+  IDMunicipio int not null,
+  IDApoyo int not null,
+  NombreComercial varchar(30) not null,
+  Laboratorio varchar(30) not null,
   foreign key (IDApoyo)
   references Apoyos( IDApoyo )
   on update cascade on delete cascade,

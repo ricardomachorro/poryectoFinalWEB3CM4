@@ -68,6 +68,7 @@ public class ControladorAdmi extends HttpServlet {
             }
             if(usuarioPermitido){
                RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
+               
                rd.forward(request, response);
                
             }else{

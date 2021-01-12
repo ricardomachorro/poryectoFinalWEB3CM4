@@ -18,14 +18,14 @@
         <link rel="stylesheet" href="css/principalAdmCSS.css" >
     </head>
     <body>
-         <nav class="navbar navbar-expand-lg  navBarGeneral">
+        <nav class="navbar navbar-expand-lg  navBarGeneral">
             <a class="navbar-brand textoNavBarGeneral" >Sistema de apoyos</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span ><img class="imagenNavBarInicio" src="img/lista.png"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                     <a class="nav-link active textoNavBarGeneral" href="principalAdmi.html">Pagina principal administrador<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active textoNavBarGeneral" href="principalAdmi.html">Pagina principal administrador<span class="sr-only">(current)</span></a>
                     <a class="nav-link textoNavBarGeneral" href="datosApoyo.html" >Hacer nuevo apoyo</a>
                     <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
                 </div>
@@ -37,35 +37,40 @@
                     <h5 class="card-title">Visón general </h5>
                     <img class="imgOpccionesLista" src="img/mexico.png">
                     <img class="imgOpccionesLista" src="img/mujer.png">
-                     <p class="card-text">Informe de los apoyos en los municipios</p>
+                    <p class="card-text">Informe de los apoyos en los municipios</p>
                     <a href="" class="card-link">Ver los apoyos mas solicitados por municipio</a>
                     <a href="" class="card-link">Generar reporte de beneficiados por municipio</a>
                 </div>
             </div>
-             <table class="table table-striped tablaPer">
+            <table class="table table-striped tablaPer">
                 <thead>
                     <tr>
                         <th>ID Apoyo</th>
                         <th>Nombre comercial</th>
                         <th>Laboratorio</th>
                         <th>Municipio</th>
-                       <!-- <th>Editar datos del apoyo</th>
-                        <th>Eliminar apoyo</th>-->
-                       <th colspan="3">Opcciones</th>
+                        <!-- <th>Editar datos del apoyo</th>
+                         <th>Eliminar apoyo</th>-->
+                        <th colspan="3">Opcciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
-                        <tr>
-                          <td>ID Apoyo</td>
+                    <c:forEach
+                        var="dtoVariantesApoyos"
+                        items="${listaVariantesApoyos}">
+                    
+                    <tr>
+                        <td>ID Apoyo</td>
                         <td>Nombre comercial</td>
                         <td>Laboratorio</td>
                         <td>Municipio</td>
                         <td><button type="button"  class="btn btn-dark">Ver datos apoyo</button></td>
                         <td><button type="button" class="btn btn-success">Editar</button></td>
                         <td><button  class="btn btn-danger">Eliminar</button></td>
-                        </tr>   
-                  
+                    </tr>   
+
+                </c:forEach>
+
                 </tbody>
             </table>  
         </div>

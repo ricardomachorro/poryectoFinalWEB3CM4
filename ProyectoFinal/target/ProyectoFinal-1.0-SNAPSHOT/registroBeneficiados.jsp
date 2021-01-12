@@ -48,8 +48,8 @@
                     <input type="text" class="form-control" id="txtCalle" >
                 </div>
                 <div class="form-group">
-                    <label for="txtCURP">CURP</label>
-                    <input type="text" class="form-control" id="txtCURP" >
+                    <label for="txtMail">Correo</label>
+                    <input type="mail" class="form-control" id="txtMail" >
                 </div>
                 <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
@@ -73,8 +73,14 @@
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>
                     <select class="form-control">
-                        <option>Seleccione municipio</option>
-                        <option>2</option>
+                        <option >Seleccione municipio</option>
+                        <c:forEach
+                            var="dtoMunicipios"
+                            items="${listaMunicipios}">
+                            <option  value="<c:out value="${dtoMunicipios.entidad.IDMunicipio}"/>" 
+                            IDEstado="<c:out value="${dtoMunicipios.entidad.IDEstado}"/>" >
+                                <c:out value="${dtoMunicipios.entidad.nombre}"/></option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="form-group">

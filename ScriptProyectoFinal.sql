@@ -38,7 +38,7 @@ CREATE table Beneficiados(
    Contra varchar (50) not null,
    Calle varchar (60) not null,
    Edad int not null,
-   CURP varchar (30),
+   Correo varchar (90),
    IDMunicipio int not null,
    Imagen bytea not null,
    foreign key (IDMunicipio)
@@ -441,5 +441,6 @@ values (3,'ddfsdf','ds','sd');
 select * from municipio;
 insert into apoyos(componente) values ('diclofenaco');
 select * from apoyos;
+select * from beneficiados;
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)
 values('rick','1234','dsds',12,'ddsds',3);

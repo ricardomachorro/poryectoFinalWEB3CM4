@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,7 +47,7 @@
                     <input type="text" class="form-control" name="txtClave" id="txtClave">
                 </div>
                 <div class="form-group row">
-                    <p><c:out value="${mensaje}"/></p>
+                    <p><c:out value="${messageList}"/></p>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Ingresar</button>

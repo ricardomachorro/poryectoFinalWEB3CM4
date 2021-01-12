@@ -7,6 +7,7 @@ package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dto.EstadoDTO;
+import com.ipn.mx.modelo.entidades.Estado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -52,33 +53,31 @@ public class ControladorAdmi extends HttpServlet {
     
      private void ingresoPanelAdmi(HttpServletRequest request, HttpServletResponse response) {
             EstadoDAO estadoDao= new EstadoDAO();
-            EstadoDTO estadoDTO=new EstadoDTO();
             boolean usuarioPermitido=false;
         try {
-            List estadoLista=estadoDao.readAll();
+            List<EstadoDTO> estadoLista=estadoDao.readAll();
             for(int i=0;i<estadoLista.size();i++){
-                 estadoDTO=(EstadoDTO) estadoLista.get(i);
-                 if(estadoDTO.getEntidad().getClave()==request.getParameter("txtClave")){
-                   if((estadoDTO.getEntidad().getNombreUsuarioEncargado()==request.getParameter("txtNombre"))
-                       && (estadoDTO.getEntidad().getContra()==request.getParameter("txtPassword"))){
+                 if(estadoLista.get(i).getEntidad().getClave().equals((String) request.getParameter("txtClave"))){
+                    if((estadoLista.get(i).getEntidad().getNombreUsuarioEncargado().equals((String) request.getParameter("txtNombre")))
+                           && (estadoLista.get(i).getEntidad().getContra().equals((String) request.getParameter("txtPassword")))){
                         usuarioPermitido=true;
                         break;
                     }
-                    usuarioPermitido=true;
-                        break;
+                   
                  }
             }
             if(usuarioPermitido){
-               RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.html");
+               RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
                rd.forward(request, response);
                
             }else{
                 RequestDispatcher rd = request.getRequestDispatcher("ingresoAdmi.jsp");
-                request.setAttribute("mensaje", "Usuario invalido");
+                request.setAttribute("messageList","Datos erroneos");
                 rd.forward(request, response);
             }
+       
             
-    
+          
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         }

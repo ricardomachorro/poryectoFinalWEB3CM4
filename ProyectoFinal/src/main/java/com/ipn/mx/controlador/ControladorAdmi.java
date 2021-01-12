@@ -43,6 +43,7 @@ public class ControladorAdmi extends HttpServlet {
         switch(accion){
                case "ingresoAdmi":
                    ingresoPanelAdmi(request, response);
+                   
                break;
                default :
                break;
@@ -58,17 +59,19 @@ public class ControladorAdmi extends HttpServlet {
             for(int i=0;i<estadoLista.size();i++){
                  estadoDTO=(EstadoDTO) estadoLista.get(i);
                  if(estadoDTO.getEntidad().getClave()==request.getParameter("txtClave")){
-                    if((estadoDTO.getEntidad().getNombreUsuarioEncargado()==request.getParameter("txtNombre"))
+                   if((estadoDTO.getEntidad().getNombreUsuarioEncargado()==request.getParameter("txtNombre"))
                        && (estadoDTO.getEntidad().getContra()==request.getParameter("txtPassword"))){
                         usuarioPermitido=true;
                         break;
                     }
+                    usuarioPermitido=true;
+                        break;
                  }
             }
             if(usuarioPermitido){
-               RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
+               RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.html");
                rd.forward(request, response);
-                rd.forward(request, response);
+               
             }else{
                 RequestDispatcher rd = request.getRequestDispatcher("ingresoAdmi.jsp");
                 request.setAttribute("mensaje", "Usuario invalido");

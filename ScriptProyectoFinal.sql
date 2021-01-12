@@ -435,11 +435,15 @@ values (32,'Tlalpan','32123','41232');
 
 select *from municipio;
 
-insert into municipio (idestado,nombre,clave,codigo)
-values (3,'ddfsdf','ds','sd');
-
-select * from municipio;
-insert into apoyos(componente) values ('diclofenaco');
+/*Inserción apoyos*/
+insert into apoyos(componente) values ('Diclofenaco');
+insert into apoyos(componente) values ('Ramipril');
+insert into apoyos(componente) values ('Amlodipina');
+insert into apoyos(componente) values ('Salbutamol');
+insert into apoyos(componente) values ('Atorvastatina');
+insert into apoyos(componente) values ('Ibubrofeno');
+insert into apoyos(componente) values ('Simvastatina ');
+insert into apoyos(componente) values ('Efedrina');
 select * from apoyos;
 select * from beneficiados;
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)

@@ -33,31 +33,32 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioRegBen" action="ControladorBeneficiario?accion=registroBeneficiario">
+            <form class="formularioRegBen" method="post" action="ControladorBeneficiario?accion=registroBeneficiario" 
+                   enctype="multipart/form-data">
                 <h2>Registro Beneficiados</h2>
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" >
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" >
                 </div>
                 <div class="form-group">
                     <label for="txtEdad">Edad</label>
-                    <input type="number" class="form-control" id="txtEdad" >
+                    <input type="number" class="form-control" id="txtEdad" name="txtEdad">
                 </div>
                 <div class="form-group">
                     <label for="txtCalle">Calle</label>
-                    <input type="text" class="form-control" id="txtCalle" >
+                    <input type="text" class="form-control" id="txtCalle" name="txtCalle">
                 </div>
                 <div class="form-group">
                     <label for="txtMail">Correo</label>
-                    <input type="mail" class="form-control" id="txtMail" >
+                    <input type="mail" class="form-control" id="txtMail" name="txtMail" >
                 </div>
                 <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
-                    <input type="file" class="form-control" id="txtFile" >
+                    <input type="file" class="form-control" id="txtFile" name="txtFile" >
                 </div>
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword">
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword">
                 </div>
                 <div class="form-group">
                     <label for="selEstado">Estado</label>
@@ -89,7 +90,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txtCodigo">Código</label>
-                    <input type="text" class="form-control" id="txtCodigo" >
+                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" >
                 </div>
                 <button type="submit" class="btn btn-primary">Registrarse</button>
             </form>

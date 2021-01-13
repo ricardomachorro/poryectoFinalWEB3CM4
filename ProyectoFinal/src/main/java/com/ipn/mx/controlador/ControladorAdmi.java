@@ -201,6 +201,20 @@ public class ControladorAdmi extends HttpServlet {
          VariantesApoyosDTO varApoyoEntrada=new VariantesApoyosDTO();
          varApoyoEntrada.getEntidad().setNombreComercial(request.getParameter("txtNombreCom"));
          varApoyoEntrada.getEntidad().setLaboratorio(request.getParameter("txtLab"));
+         varApoyoEntrada.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selMunicipio")));
+         varApoyoEntrada.getEntidad().setIDApoyo(Integer.parseInt(request.getParameter("selApoyo")));
+         VariantesApoyosDAO dao=new VariantesApoyosDAO();
+         try{
+           if(request.getParameter("idVariacionApoyo").isBlank()){
+            dao.create(varApoyoEntrada);
+            }else{
+             varApoyoEntrada.getEntidad().setIDVarianteApoyo(Integer.parseInt(request.getParameter("idVariacionApoyo")));
+            dao.update(varApoyoEntrada);
+            }
+         
+         } catch (SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
          
       }

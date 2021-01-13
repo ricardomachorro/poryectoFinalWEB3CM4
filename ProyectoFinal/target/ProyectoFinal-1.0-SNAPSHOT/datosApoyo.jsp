@@ -52,7 +52,9 @@
                 </div>
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>
-                    <select class="form-control">
+                    <select class="form-control" 
+                            name="selMunicipio" 
+                            id="selMunicipio">
                         <option>Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipio"
@@ -64,7 +66,9 @@
                 </div>
                 <div class="form-group">
                     <label for="selApoyo">Apoyo</label>
-                    <select class="form-control">
+                    <select class="form-control"
+                            name="selApoyo" 
+                            id="selApoyo">
                         <option>Seleccione apoyo</option>
                        <c:forEach
                             var="dtoApoyos"

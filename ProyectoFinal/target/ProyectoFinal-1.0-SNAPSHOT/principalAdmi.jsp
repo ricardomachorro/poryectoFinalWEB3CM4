@@ -64,10 +64,26 @@
                             var="dtoVariantesApoyos"
                             items="${listaVariantesApoyos}">
                             <tr>
-                       <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
+                            <c:forEach
+                            var="dtoMumicipios"
+                            items="${listaMunicipios}">
+                                <c:if test = "${dtoVariantesApoyos.entidad.IDMunicipio==dtoMumicipios.entidad.IDMunicipio}">
+                                    <td><c:out value="${dtoMumicipios.entidad.nombre}"/></td>
+                                </c:if>
+                                
+                             </c:forEach>
+                              <c:forEach
+                            var="dtoApoyos"
+                            items="${listaApoyos}">
+                                <c:if test = "${dtoVariantesApoyos.entidad.IDApoyo==dtoApoyos.entidad.IDApoyo}">
+                                    <td><c:out value="${dtoApoyos.entidad.componente}"/></td>
+                                </c:if>
+                                
+                             </c:forEach>
+                       
+                    
                     <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
-                    <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
-                    <td><c:out value="${dtoVariantesApoyos.entidad.nombrecomercial}"/></td>
+                    <td><c:out value="${dtoVariantesApoyos.entidad.nombreComercial}"/></td>
                        <td><button type="button"  class="btn btn-dark">Ver datos apoyo</button></td>
                         <td><button type="button" class="btn btn-success">Editar</button></td>
                         <td><button  class="btn btn-danger">Eliminar</button></td></tr>

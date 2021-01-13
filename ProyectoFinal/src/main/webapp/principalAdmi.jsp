@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active textoNavBarGeneral" href="principalAdmi.html">Pagina principal administrador<span class="sr-only">(current)</span></a>
-                    <a class="nav-link textoNavBarGeneral" href="datosApoyo.html" >Hacer nuevo apoyo</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=nuevoApoyo" >Hacer nuevo apoyo</a>
                     <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
                 </div>
             </div>

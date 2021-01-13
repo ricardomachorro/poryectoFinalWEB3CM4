@@ -131,11 +131,26 @@ public class ControladorAdmi extends HttpServlet {
      
      private void nuevoApoyo(HttpServletRequest request, HttpServletResponse response) {
          MunicipioDAO municipioDao=new MunicipioDAO();
+         ApoyosDAO apoyosDao=new ApoyosDAO();
         try {
             List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
+            List<ApoyosDTO> listaApoyos=apoyosDao.readAll();
+            HttpSession session = request.getSession();
+            EstadoDTO estadoUsuario=(EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+             List<MunicipioDTO> listaMunicipiosSalida=municipioDao.readAll();
+             listaMunicipiosSalida.clear();
+             for(int i=0;i<listaMunicipios.size();i++){
+                 if(listaMunicipios.get(i).getEntidad().getIDEstado()==estadoUsuario.getEntidad().getIDEstado()){
+                     listaMunicipiosSalida.add(listaMunicipios.get(i));
+                 }
+             }
+             request.setAttribute("listaMunicipios",listaMunicipiosSalida);
+              request.setAttribute("listaApoyos",listaApoyos);
+               RequestDispatcher rd = request.getRequestDispatcher("datosApoyo.jsp");
+               
+               rd.forward(request, response);
             
-            
-        } catch (SQLException ex) {
+        } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         }
      

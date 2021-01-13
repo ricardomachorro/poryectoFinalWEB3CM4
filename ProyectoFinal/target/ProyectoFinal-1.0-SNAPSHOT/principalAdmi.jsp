@@ -48,7 +48,7 @@
             <table class="table table-striped tablaPer">
                 <thead>
                     <tr>
-
+                        <th>ID Variante Apoyo</th>
                         <th>Municipio</th>
                         <th>Apoyo</th>
                         <th>Laboratorio</th>
@@ -64,6 +64,7 @@
                             var="dtoVariantesApoyos"
                             items="${listaVariantesApoyos}">
                             <tr>
+                                <td><c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/></td>
                             <c:forEach
                             var="dtoMumicipios"
                             items="${listaMunicipios}">
@@ -86,7 +87,7 @@
                     <td><c:out value="${dtoVariantesApoyos.entidad.nombreComercial}"/></td>
                        <td><a   class="btn btn-dark">Ver datos apoyo</a></td>
                         <td><a  class="btn btn-success" href="ControladorAdmi?accion=editarApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Editar</a></td>
-                        <td><a  class="btn btn-danger">Eliminar</a></td></tr>
+                        <td><a  class="btn btn-danger" href="ControladorAdmi?accion=eliminarApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Eliminar</a></td></tr>
                     </c:forEach>
                     
                

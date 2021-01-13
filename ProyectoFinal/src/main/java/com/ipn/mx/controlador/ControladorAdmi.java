@@ -68,6 +68,9 @@ public class ControladorAdmi extends HttpServlet {
                case "cargarPanelAdmi":
                     cargarPanelAdmi(request, response);
                break;
+               case "cerrarSesion":
+                    cerrarSesion(request, response);
+               break;
                default :
                break;
         }
@@ -355,6 +358,19 @@ public class ControladorAdmi extends HttpServlet {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         } 
             
+       }
+       
+       private void cerrarSesion(HttpServletRequest request, HttpServletResponse response) {
+         RequestDispatcher rd = request.getRequestDispatcher("index.html");
+               
+        try {
+             HttpSession session = request.getSession();
+             session.invalidate();
+            rd.forward(request, response);
+            
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
        }
      
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

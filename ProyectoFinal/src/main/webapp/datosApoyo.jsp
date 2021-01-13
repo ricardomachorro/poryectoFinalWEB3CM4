@@ -27,7 +27,7 @@
                 <div class="navbar-nav">
                    <a class="nav-link active textoNavBarGeneral" href="ControladorAdmi?accion=cargarPanelAdmi">Pagina principal administrador<span class="sr-only">(current)</span></a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=nuevoApoyo" >Hacer nuevo apoyo</a>
-                    <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>
@@ -59,7 +59,11 @@
                         <c:forEach
                             var="dtoMunicipio"
                             items="${listaMunicipios}">
-                            <option value="<c:out value="${dtoMunicipio.entidad.IDMunicipio}" />"><c:out value="${dtoMunicipio.entidad.nombre}" /></option>
+                            <option value="<c:out value="${dtoMunicipio.entidad.IDMunicipio}" />"
+                                    <c:if test="${varianteApoyo.entidad.IDMunicipio==dtoMunicipio.entidad.IDMunicipio}">
+                                        <c:out value="selected" />
+                                    </c:if>
+                                    ><c:out value="${dtoMunicipio.entidad.nombre}" /></option>
                             </c:forEach>
                         
                     </select>
@@ -73,7 +77,11 @@
                        <c:forEach
                             var="dtoApoyos"
                             items="${listaApoyos}">
-                            <option value="<c:out value="${dtoApoyos.entidad.IDApoyo}" />"><c:out value="${dtoApoyos.entidad.componente}" /></option>
+                            <option value="<c:out value="${dtoApoyos.entidad.IDApoyo}" />"
+                                    <c:if test="${varianteApoyo.entidad.IDApoyo==dtoApoyos.entidad.IDApoyo}">
+                                         <c:out value="selected" />
+                                    </c:if>     
+                               ><c:out value="${dtoApoyos.entidad.componente}" /></option>
                             </c:forEach>
                     </select>
                 </div>

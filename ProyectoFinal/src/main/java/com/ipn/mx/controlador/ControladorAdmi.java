@@ -52,7 +52,7 @@ public class ControladorAdmi extends HttpServlet {
         String accion = request.getParameter("accion");
         switch(accion){
                case "ingresoAdmi":
-                   ingresoPanelAdmi(request, response);
+                   ingresoAdmi(request, response);
                case "nuevoApoyo":
                    nuevoApoyo(request, response);
                break;
@@ -70,25 +70,14 @@ public class ControladorAdmi extends HttpServlet {
         }
     }
     
-     private void ingresoPanelAdmi(HttpServletRequest request, HttpServletResponse response) {
-            EstadoDAO estadoDao= new EstadoDAO();
-            EstadoDTO estadoDTO=new EstadoDTO();
-            boolean usuarioPermitido=false;
-        try {
-            List<EstadoDTO> estadoLista=estadoDao.readAll();
-            for(int i=0;i<estadoLista.size();i++){
-                 if(estadoLista.get(i).getEntidad().getClave().equals((String) request.getParameter("txtClave"))){
-                    if((estadoLista.get(i).getEntidad().getNombreUsuarioEncargado().equals((String) request.getParameter("txtNombre")))
-                           && (estadoLista.get(i).getEntidad().getContra().equals((String) request.getParameter("txtPassword")))){
-                        estadoDTO=estadoLista.get(i);
-                        usuarioPermitido=true;
-                        break;
-                    }
-                   
-                 }
-            }
-            if(usuarioPermitido){
-                VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
+     private void cargarPanelAdmi(HttpServletRequest request, HttpServletResponse response) {
+     
+         try{
+            HttpSession session = request.getSession();
+           EstadoDAO estadoDao= new EstadoDAO();
+            EstadoDTO estadoDTO=(EstadoDTO)session.getAttribute("usuarioEstadosDatos");
+
+           VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
                 List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
                 List<VariantesApoyosDTO> variantesApoyosSalida=varianteApoyosDao.readAll();
                 variantesApoyosSalida.clear();
@@ -109,9 +98,7 @@ public class ControladorAdmi extends HttpServlet {
                   }
                }
            
-                HttpSession session = request.getSession();
-                session.invalidate();
-                session=request.getSession();
+               
                 session.setAttribute("usuarioEstadosDatos", estadoDTO);
                request.setAttribute("listaVariantesApoyos",variantesApoyosSalida);
                request.setAttribute("listaApoyos",listaApoyos );
@@ -122,6 +109,69 @@ public class ControladorAdmi extends HttpServlet {
                RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
                
                rd.forward(request, response);
+         
+         
+         } catch (ServletException | IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     }
+    
+     private void ingresoAdmi(HttpServletRequest request, HttpServletResponse response) {
+            EstadoDAO estadoDao= new EstadoDAO();
+            EstadoDTO estadoDTO=new EstadoDTO();
+            boolean usuarioPermitido=false;
+        try {
+            List<EstadoDTO> estadoLista=estadoDao.readAll();
+            for(int i=0;i<estadoLista.size();i++){
+                 if(estadoLista.get(i).getEntidad().getClave().equals((String) request.getParameter("txtClave"))){
+                    if((estadoLista.get(i).getEntidad().getNombreUsuarioEncargado().equals((String) request.getParameter("txtNombre")))
+                           && (estadoLista.get(i).getEntidad().getContra().equals((String) request.getParameter("txtPassword")))){
+                        estadoDTO=estadoLista.get(i);
+                        usuarioPermitido=true;
+                        break;
+                    }
+                   
+                 }
+            }
+            if(usuarioPermitido){
+              /*  VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
+                List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
+                List<VariantesApoyosDTO> variantesApoyosSalida=varianteApoyosDao.readAll();
+                variantesApoyosSalida.clear();
+                MunicipioDAO municipioDao=new MunicipioDAO();
+                List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
+                ApoyosDAO apoyoDao=new ApoyosDAO();
+                List<ApoyosDTO> listaApoyos=apoyoDao.readAll();
+                
+              
+               for(int i=0;i<variantesApoyosLista.size();i++){
+                  int IDMunicipio=variantesApoyosLista.get(i).getEntidad().getIDMunicipio();
+                  MunicipioDTO munEvaluar=new MunicipioDTO();
+                  munEvaluar.getEntidad().setIDMunicipio(IDMunicipio);
+                  munEvaluar=municipioDao.read(munEvaluar);
+                  if(munEvaluar.getEntidad().getIDEstado()==estadoDTO.getEntidad().getIDEstado()){
+                      variantesApoyosSalida.add(variantesApoyosLista.get(i));
+                  }
+               }*/
+           
+                HttpSession session = request.getSession();
+                session.invalidate();
+                session=request.getSession();
+                session.setAttribute("usuarioEstadosDatos", estadoDTO);
+              /* request.setAttribute("listaVariantesApoyos",variantesApoyosSalida);
+               request.setAttribute("listaApoyos",listaApoyos );
+               request.setAttribute("listaMunicipios",listaMunicipios );
+               request.setAttribute("listaVariantesApoyosSize",variantesApoyosSalida.size());
+               request.setAttribute("listaApoyosSize",listaApoyos.size() );
+               request.setAttribute("listaMunicipiosSize",listaMunicipios.size() );
+               RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
+               
+               rd.forward(request, response);*/
+              
+                cargarPanelAdmi(request, response);
                
             }else{
                 RequestDispatcher rd = request.getRequestDispatcher("ingresoAdmi.jsp");
@@ -215,7 +265,7 @@ public class ControladorAdmi extends HttpServlet {
              varApoyoEntrada.getEntidad().setIDVarianteApoyo(Integer.parseInt(request.getParameter("idVariacionApoyo")));
             dao.update(varApoyoEntrada);
             }
-              HttpSession session = request.getSession();
+             /* HttpSession session = request.getSession();
               EstadoDTO estadoDTO=(EstadoDTO) session.getAttribute("usuarioEstadosDatos");
               VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
                 List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
@@ -246,11 +296,13 @@ public class ControladorAdmi extends HttpServlet {
                request.setAttribute("listaMunicipiosSize",listaMunicipios.size() );
                RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
                
-               rd.forward(request, response);
+               rd.forward(request, response);*/
+             
+              cargarPanelAdmi(request, response);
          
-         } catch (SQLException | ServletException | IOException ex) {
+         } catch (SQLException ex) { 
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
          
          
       }
@@ -262,7 +314,7 @@ public class ControladorAdmi extends HttpServlet {
             VariantesApoyosDTO dto =new VariantesApoyosDTO();
             dto.getEntidad().setIDVarianteApoyo(IDVarianteApoyo);
             dao.delete(dto);
-            HttpSession session = request.getSession();
+           /* HttpSession session = request.getSession();
               EstadoDTO estadoDTO=(EstadoDTO) session.getAttribute("usuarioEstadosDatos");
               VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
                 List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
@@ -293,11 +345,12 @@ public class ControladorAdmi extends HttpServlet {
                request.setAttribute("listaMunicipiosSize",listaMunicipios.size() );
                RequestDispatcher rd = request.getRequestDispatcher("principalAdmi.jsp");
                
-               rd.forward(request, response);
+               rd.forward(request, response);*/
+               cargarPanelAdmi(request, response);
             
-        } catch (SQLException | ServletException | IOException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
             
        }
      

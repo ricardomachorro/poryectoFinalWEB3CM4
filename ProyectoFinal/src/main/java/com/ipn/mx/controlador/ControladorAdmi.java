@@ -65,6 +65,9 @@ public class ControladorAdmi extends HttpServlet {
                case "eliminarApoyo":
                    eliminarApoyo(request, response);
                break;
+               case "cargarPanelAdmi":
+                    cargarPanelAdmi(request, response);
+               break;
                default :
                break;
         }

@@ -23,8 +23,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active textoNavBarInicio" href="index.html">Inicio <span class="sr-only">(current)</span></a>
-                     <a class="nav-link textoNavBarInicio" href="" >Ingreso beneficiados</a>
+                  <a class="nav-link active textoNavBarInicio" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link textoNavBarInicio" href="" >Ingreso beneficiados</a>
                     <a class="nav-link textoNavBarInicio" href="ControladorPrincipal?accion=ingresoBeneficiados">Registro beneficiados</a>
                     <a class="nav-link textoNavBarInicio" href="ingresoAdmi.jsp" >Ingreso administradores</a>
                    

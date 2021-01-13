@@ -32,7 +32,7 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioDatosApoyo">
+            <form class="formularioDatosApoyo" method="post" action="ControladorAdmi?accion=almacenarApoyo">
                 <h2>Datos Apoyo</h2>
                 <input type="hidden" class="form-control"
                        id="idVariacionApoyo" name="idVariacionApoyo" 

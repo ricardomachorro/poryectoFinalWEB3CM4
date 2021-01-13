@@ -41,11 +41,13 @@
                 <div class="form-group">
                     <label for="txtNombreCom">Nombre Comercial</label>
                     <input type="text" class="form-control" id="txtNombreCom"
+                           name="txtNombreCom"
                       value="<c:out value="${varianteApoyo.entidad.nombreComercial}"/>"     >
                 </div>
                  <div class="form-group">
                     <label for="txtLab">Laboratorio</label>
                     <input type="text" class="form-control" id="txtLab" 
+                           name="txtLab" 
                         value="<c:out value="${varianteApoyo.entidad.laboratorio}"/>" >
                 </div>
                 <div class="form-group">

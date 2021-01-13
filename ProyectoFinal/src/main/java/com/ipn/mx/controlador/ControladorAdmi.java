@@ -59,6 +59,9 @@ public class ControladorAdmi extends HttpServlet {
                 case "editarApoyo":
                    editarApoyo(request, response);
                break;
+               case "almacenarApoyo":
+                   almacenarApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -193,6 +196,15 @@ public class ControladorAdmi extends HttpServlet {
      
      }
 
+      private void almacenarApoyo(HttpServletRequest request, HttpServletResponse response) {
+      
+         VariantesApoyosDTO varApoyoEntrada=new VariantesApoyosDTO();
+         varApoyoEntrada.getEntidad().setNombreComercial(request.getParameter("txtNombreCom"));
+         varApoyoEntrada.getEntidad().setLaboratorio(request.getParameter("txtLab"));
+         
+         
+      }
+     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

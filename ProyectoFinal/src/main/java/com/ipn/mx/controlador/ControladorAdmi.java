@@ -28,6 +28,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -52,7 +53,8 @@ public class ControladorAdmi extends HttpServlet {
         switch(accion){
                case "ingresoAdmi":
                    ingresoPanelAdmi(request, response);
-                   
+               case "nuevoApoyo":
+                   nuevoApoyo(request, response);
                break;
                default :
                break;
@@ -80,23 +82,29 @@ public class ControladorAdmi extends HttpServlet {
                 VariantesApoyosDAO varianteApoyosDao= new VariantesApoyosDAO();
                 List<VariantesApoyosDTO> variantesApoyosLista=varianteApoyosDao.readAll();
                 List<VariantesApoyosDTO> variantesApoyosSalida=varianteApoyosDao.readAll();
+                variantesApoyosSalida.clear();
                 MunicipioDAO municipioDao=new MunicipioDAO();
                 List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
                 ApoyosDAO apoyoDao=new ApoyosDAO();
                 List<ApoyosDTO> listaApoyos=apoyoDao.readAll();
              /*   List<MunicipioDTO> municipioLista=municipioDao.readAll();
-               List<MunicipioDTO> municipiosDelEstado;*/    
+               List<MunicipioDTO> municipiosDelEstado;*/   
+              
                for(int i=0;i<variantesApoyosLista.size();i++){
                   int IDMunicipio=variantesApoyosLista.get(i).getEntidad().getIDMunicipio();
                   MunicipioDTO munEvaluar=new MunicipioDTO();
                   munEvaluar.getEntidad().setIDMunicipio(IDMunicipio);
                   munEvaluar=municipioDao.read(munEvaluar);
-                  if(munEvaluar.getEntidad().getIDEstado()!=estadoDTO.getEntidad().getIDEstado()){
-                      variantesApoyosSalida.remove(i);
+                  if(munEvaluar.getEntidad().getIDEstado()==estadoDTO.getEntidad().getIDEstado()){
+                      variantesApoyosSalida.add(variantesApoyosLista.get(i));
                   }
                }
-              
-               request.setAttribute("listaVariantesApoyos",variantesApoyosSalida );
+           
+                HttpSession session = request.getSession();
+                session.invalidate();
+                session=request.getSession();
+                session.setAttribute("usuarioEstadosDatos", estadoDTO);
+               request.setAttribute("listaVariantesApoyos",variantesApoyosSalida);
                request.setAttribute("listaApoyos",listaApoyos );
                request.setAttribute("listaMunicipios",listaMunicipios );
                request.setAttribute("listaVariantesApoyosSize",variantesApoyosSalida.size());
@@ -120,6 +128,18 @@ public class ControladorAdmi extends HttpServlet {
          
 
     }
+     
+     private void nuevoApoyo(HttpServletRequest request, HttpServletResponse response) {
+         MunicipioDAO municipioDao=new MunicipioDAO();
+        try {
+            List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

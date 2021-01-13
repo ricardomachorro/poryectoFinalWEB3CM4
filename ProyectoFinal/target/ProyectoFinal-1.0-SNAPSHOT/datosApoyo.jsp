@@ -36,15 +36,17 @@
                 <h2>Datos Apoyo</h2>
                 <input type="hidden" class="form-control"
                        id="idVariacionApoyo" name="idVariacionApoyo" 
-                       value="<c:out value="${idVariacionApoyo}"/>">
+                       value="<c:out value="${varianteApoyo.entidad.IDVarianteApoyo}"/>">
                 
                 <div class="form-group">
                     <label for="txtNombreCom">Nombre Comercial</label>
-                    <input type="text" class="form-control" id="txtNombreCom" >
+                    <input type="text" class="form-control" id="txtNombreCom"
+                      value="<c:out value="${varianteApoyo.entidad.nombreComercial}"/>"     >
                 </div>
                  <div class="form-group">
                     <label for="txtLab">Laboratorio</label>
-                    <input type="text" class="form-control" id="txtLab" >
+                    <input type="text" class="form-control" id="txtLab" 
+                        value="<c:out value="${varianteApoyo.entidad.laboratorio}"/>" >
                 </div>
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>

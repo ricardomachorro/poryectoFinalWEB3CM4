@@ -56,6 +56,9 @@ public class ControladorAdmi extends HttpServlet {
                case "nuevoApoyo":
                    nuevoApoyo(request, response);
                break;
+                case "editarApoyo":
+                   editarApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -144,6 +147,40 @@ public class ControladorAdmi extends HttpServlet {
                      listaMunicipiosSalida.add(listaMunicipios.get(i));
                  }
              }
+             request.setAttribute("listaMunicipios",listaMunicipiosSalida);
+              request.setAttribute("listaApoyos",listaApoyos);
+               RequestDispatcher rd = request.getRequestDispatcher("datosApoyo.jsp");
+               
+               rd.forward(request, response);
+            
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     }
+     
+     private void editarApoyo(HttpServletRequest request, HttpServletResponse response) {
+         MunicipioDAO municipioDao=new MunicipioDAO();
+         ApoyosDAO apoyosDao=new ApoyosDAO();
+         VariantesApoyosDAO varApoyosDAO=new VariantesApoyosDAO();
+         VariantesApoyosDTO varApoyosDTO=new VariantesApoyosDTO();
+         try {
+             varApoyosDTO.getEntidad().setIDVarianteApoyo(Integer.parseInt(request.getParameter("idApoyoVariante")));
+            varApoyosDTO=varApoyosDAO.read(varApoyosDTO);
+         
+        
+            List<MunicipioDTO> listaMunicipios=municipioDao.readAll();
+            List<ApoyosDTO> listaApoyos=apoyosDao.readAll();
+            HttpSession session = request.getSession();
+            EstadoDTO estadoUsuario=(EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+             List<MunicipioDTO> listaMunicipiosSalida=municipioDao.readAll();
+             listaMunicipiosSalida.clear();
+             for(int i=0;i<listaMunicipios.size();i++){
+                 if(listaMunicipios.get(i).getEntidad().getIDEstado()==estadoUsuario.getEntidad().getIDEstado()){
+                     listaMunicipiosSalida.add(listaMunicipios.get(i));
+                 }
+             }
+             request.setAttribute("varianteApoyo",varApoyosDTO);
              request.setAttribute("listaMunicipios",listaMunicipiosSalida);
               request.setAttribute("listaApoyos",listaApoyos);
                RequestDispatcher rd = request.getRequestDispatcher("datosApoyo.jsp");

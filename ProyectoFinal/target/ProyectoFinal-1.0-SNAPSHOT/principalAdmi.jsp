@@ -84,9 +84,9 @@
                     
                     <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
                     <td><c:out value="${dtoVariantesApoyos.entidad.nombreComercial}"/></td>
-                       <td><button type="button"  class="btn btn-dark">Ver datos apoyo</button></td>
-                        <td><button type="button" class="btn btn-success">Editar</button></td>
-                        <td><button  class="btn btn-danger">Eliminar</button></td></tr>
+                       <td><a   class="btn btn-dark">Ver datos apoyo</a></td>
+                        <td><a  class="btn btn-success" href="ControladorAdmi?accion=editarApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Editar</a></td>
+                        <td><a  class="btn btn-danger">Eliminar</a></td></tr>
                     </c:forEach>
                     
                

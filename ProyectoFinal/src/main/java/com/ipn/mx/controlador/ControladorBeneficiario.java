@@ -8,8 +8,10 @@ package com.ipn.mx.controlador;
 import com.ipn.mx.modelo.dao.BeneficiadosDAO;
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
+import com.ipn.mx.modelo.dao.PedidosDAO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
+import com.ipn.mx.modelo.dto.PedidosDTO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,6 +62,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "formularioRegistroBeneficiario":
                      cargarDatosSignUpBene(request, response);
                break;
+               case "ingresoBeneficiario":
+                     ingresarBeneficiario(request, response);
+               break;
                default :
                break;
         }
@@ -82,16 +87,58 @@ public class ControladorBeneficiario extends HttpServlet {
         }
 
     }
+    
+     private void ingresarBeneficiario(HttpServletRequest request, HttpServletResponse response) {
+          BeneficiadosDAO dao=new BeneficiadosDAO();
+          BeneficiadosDTO dto=new BeneficiadosDTO();
+          boolean usuarioAceptado=false;
+        try {
+            List<BeneficiadosDTO> listaBen=dao.readAll();
+             for(int i=0;i<listaBen.size();i++){
+                    BeneficiadosDTO usuariAna=(BeneficiadosDTO)listaBen.get(i);
+                    if((usuariAna.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre")))
+                            && (usuariAna.getEntidad().getContra().equals(request.getParameter("txtPassword"))) ){
+                         usuarioAceptado=true;
+                         dto=usuariAna;
+                         break;
+                          
+                    }
+                }
+             
+             if(usuarioAceptado){
+                HttpSession session = request.getSession();
+                session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
+                session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
+                cargarPanelPrinBen(request,response);
+             }else{
+                request.setAttribute("mensaje", "datos incorrectos");
+                 RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
+                 rd.forward(request, response);
+             }
+            
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     }
 
     private void cargarPanelPrinBen(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
-         RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
+        PedidosDAO dao=new PedidosDAO();
         try {
+        List listaPedidos=dao.readAll();
+        
+         RequestDispatcher rd = request.getRequestDispatcher("listaDePedidos.jsp");
+           for(int i=0;i<listaPedidos.size();i++){
+              PedidosDTO pedidosdto=(PedidosDTO) listaPedidos.get(i);
+              if(pedidosdto.getEntidad().getIDBeneficiado()!=((Integer) session.getAttribute("idUsuarioBeneficirio") )){
+                 listaPedidos.remove(i);
+              }
+              
+           }
+            request.setAttribute("listaPedidos",listaPedidos);
             rd.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,18 +33,18 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioIngBenef">
+            <form class="formularioIngBenef" method="post" action="ControladorBeneficiario?accion=ingresoBeneficiario">
                 <h2>Ingreso beneficiados</h2>
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" >
+                    <input type="text" class="form-control" name="txtNombre" id="txtNombre" >
 
                 </div>
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword">
+                    <input type="password" class="form-control" name="txtPassword" id="txtPassword">
                 </div>
-
+                <p><c:out value="${mensaje}"  /></p>
                 <button type="submit" class="btn btn-primary">Ingresar</button>
             </form>
         </div>

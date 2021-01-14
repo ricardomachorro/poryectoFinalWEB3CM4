@@ -472,5 +472,8 @@ insert into variantesapoyos (IDMunicipio,IDApoyo,NombreComercial,Laboratorio)
 values(13,4,'Vacuna','Aztrazeneca');
   
 select * from variantesapoyos ;
+
+select * from beneficiados;
+
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)
 values('rick','1234','dsds',12,'ddsds',3);

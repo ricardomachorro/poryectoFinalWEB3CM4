@@ -5,9 +5,15 @@
  */
 package com.ipn.mx.controlador;
 
+import com.ipn.mx.modelo.dao.BeneficiadosDAO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +23,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -50,21 +58,54 @@ public class ControladorBeneficiario extends HttpServlet {
         }
     }
 
-     private void registroBene(HttpServletRequest request, HttpServletResponse response) {
-         BeneficiadosDTO dao=new BeneficiadosDTO();
-         dao.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
-         dao.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));
-         dao.getEntidad().setCalle(request.getParameter("txtCalle"));
-         dao.getEntidad().setCorreo(request.getParameter("txtMail"));
-         dao.getEntidad().setContra(request.getParameter("txtPassword"));
-         dao.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectEstado")));
-          RequestDispatcher rd = request.getRequestDispatcher("ingresoAdmi.jsp");
-                request.setAttribute("messageList",dao.getEntidad().getNombreUsuario());
+    private void cargarPanelPrinBen(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        BeneficiadosDTO dato=(BeneficiadosDTO) session.getAttribute("datosUsuario");
+         RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
         try {
             rd.forward(request, response);
-        } catch (ServletException | IOException ex) {
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     private void registroBene(HttpServletRequest request, HttpServletResponse response) {
+         BeneficiadosDTO dto=new BeneficiadosDTO();
+         BeneficiadosDAO dao=new BeneficiadosDAO();
+         dto.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
+         dto.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));
+         dto.getEntidad().setCalle(request.getParameter("txtCalle"));
+         dto.getEntidad().setCorreo(request.getParameter("txtMail"));
+         dto.getEntidad().setContra(request.getParameter("txtPassword"));
+         dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectEstado")));
+        try {
+            Part filePart = request.getPart("txtFile");
+            OutputStream out = null;
+             out = new FileOutputStream(new File(""));
+            InputStream filecontent = null;
+            filecontent = filePart.getInputStream();
+            
+             final byte[] bytes = new byte[1024];
+             int read = 0;
+        
+            while ((read = filecontent.read(bytes)) != -1) {
+               out.write(bytes, 0, read);
+            }
+            dto.getEntidad().setImagen(bytes);
+          //  dao.create(dto);
+            HttpSession session = request.getSession();
+          //  session.setAttribute("datosUsuario", dto);
+            cargarPanelPrinBen(request, response);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }/* catch (IOException | ServletException | SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
          
          
          

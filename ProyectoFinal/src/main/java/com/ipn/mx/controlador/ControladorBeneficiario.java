@@ -133,10 +133,10 @@ public class ControladorBeneficiario extends HttpServlet {
                      HttpSession session = request.getSession();
                      session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
                      session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
-                      request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
-                   // cargarPanelPrinBen(request,response);
-                    request.setAttribute("mensaje",dto.getEntidad());
-                     cargarDatosSignUpBene(request, response);
+                  //   request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
+                  cargarPanelPrinBen(request,response);
+                  //  request.setAttribute("mensaje",dto.getEntidad());
+                  //   cargarDatosSignUpBene(request, response);
                      
                 }else{
                     request.setAttribute("mensaje","Nombre de Usuario ya usado");

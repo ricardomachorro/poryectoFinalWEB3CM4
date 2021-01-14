@@ -40,7 +40,7 @@ CREATE table Beneficiados(
    Edad int not null,
    Correo varchar (90),
    IDMunicipio int not null,
-   Imagen bytea not null,
+  /* Imagen bytea not null,*/
    foreign key (IDMunicipio)
   references Municipio(IDMunicipio)
   on update cascade on delete cascade

@@ -36,6 +36,6 @@ public class Beneficiados implements Serializable {
     private int Edad;
     private String Correo;
     private int IDMunicipio;
-    private byte[] Imagen;
+    //private byte[] Imagen;
     
 }

@@ -6,7 +6,10 @@
 package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.BeneficiadosDAO;
+import com.ipn.mx.modelo.dao.EstadoDAO;
+import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
+import com.ipn.mx.modelo.dto.MunicipioDTO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -53,14 +57,35 @@ public class ControladorBeneficiario extends HttpServlet {
                case "registroBeneficiario":
                      registroBene(request, response);
                break;
+               case "formularioRegistroBeneficiario":
+                     cargarDatosSignUpBene(request, response);
+               break;
                default :
                break;
         }
     }
+    
+    private void cargarDatosSignUpBene(HttpServletRequest request, HttpServletResponse response) { 
+          EstadoDAO estadosDao = new EstadoDAO();
+          MunicipioDAO municipioDao=new MunicipioDAO();
+        try {
+            List listaEstados = estadosDao.readAll();
+            List listaMunicipios= municipioDao.readAll();
+            request.setAttribute("listaEstados", listaEstados);
+             request.setAttribute("listaMunicipios", listaMunicipios);
+             //  request.setAttribute("mensaje", "");
+            RequestDispatcher rd = request.getRequestDispatcher("registroBeneficiados.jsp");
+            rd.forward(request, response);
+            
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     private void cargarPanelPrinBen(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        BeneficiadosDTO dato=(BeneficiadosDTO) session.getAttribute("datosUsuario");
+        
          RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
         try {
             rd.forward(request, response);
@@ -72,40 +97,85 @@ public class ControladorBeneficiario extends HttpServlet {
     }
     
      private void registroBene(HttpServletRequest request, HttpServletResponse response) {
-         BeneficiadosDTO dto=new BeneficiadosDTO();
-         BeneficiadosDAO dao=new BeneficiadosDAO();
-         dto.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
-         dto.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));
-         dto.getEntidad().setCalle(request.getParameter("txtCalle"));
-         dto.getEntidad().setCorreo(request.getParameter("txtMail"));
-         dto.getEntidad().setContra(request.getParameter("txtPassword"));
-         dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectEstado")));
         try {
+            BeneficiadosDTO dto=new BeneficiadosDTO();
+            BeneficiadosDAO dao=new BeneficiadosDAO();
+            MunicipioDAO munDao=new MunicipioDAO();
+            MunicipioDTO munDto=new MunicipioDTO();
+           
+            munDto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
+            munDto=munDao.read(munDto);
+            
+            if(munDto.getEntidad().getCodigo().equals(request.getParameter("txtCodigo"))){
+                List<BeneficiadosDTO> listaBen=dao.readAll();
+                boolean usuarioUnico=true;
+                for(int i=0;i<listaBen.size();i++){
+                    BeneficiadosDTO usuariAna=(BeneficiadosDTO)listaBen.get(i);
+                    if(usuariAna.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre"))){
+                      usuarioUnico=false;
+                    }
+                }
+                if(usuarioUnico){
+                    dto.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
+                    dto.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));
+                    dto.getEntidad().setCalle(request.getParameter("txtCalle"));
+                    dto.getEntidad().setCorreo(request.getParameter("txtMail"));
+                    dto.getEntidad().setContra(request.getParameter("txtPassword"));
+                    dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
+                    dao.create(dto);
+                     listaBen=dao.readAll();
+                      for(int i=0;i<listaBen.size();i++){
+                        BeneficiadosDTO usuariAna=(BeneficiadosDTO)listaBen.get(i);
+                        if(usuariAna.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre"))){
+                            dto.getEntidad().setIDBeneficiado(usuariAna.getEntidad().getIDBeneficiado());
+                        }
+                    }
+                     HttpSession session = request.getSession();
+                     session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
+                     session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
+                      request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
+                   // cargarPanelPrinBen(request,response);
+                    request.setAttribute("mensaje",dto.getEntidad());
+                     cargarDatosSignUpBene(request, response);
+                     
+                }else{
+                    request.setAttribute("mensaje","Nombre de Usuario ya usado");
+                      cargarDatosSignUpBene(request, response);
+                }
+              
+               
+            }else{
+                 request.setAttribute("mensaje","codigo incorrecto");
+                
+                 cargarDatosSignUpBene(request, response);
+            }
+            /*  try {
             Part filePart = request.getPart("txtFile");
             OutputStream out = null;
-             out = new FileOutputStream(new File(""));
+            out = new FileOutputStream(new File(""));
             InputStream filecontent = null;
             filecontent = filePart.getInputStream();
             
-             final byte[] bytes = new byte[1024];
-             int read = 0;
-        
+            final byte[] bytes = new byte[1024];
+            int read = 0;
+            
             while ((read = filecontent.read(bytes)) != -1) {
-               out.write(bytes, 0, read);
+            out.write(bytes, 0, read);
             }
             dto.getEntidad().setImagen(bytes);
-          //  dao.create(dto);
+            //  dao.create(dto);
             HttpSession session = request.getSession();
-          //  session.setAttribute("datosUsuario", dto);
+            //  session.setAttribute("datosUsuario", dto);
             cargarPanelPrinBen(request, response);
             
-        } catch (IOException ex) {
+            } catch (IOException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+            } catch (ServletException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
-        }/* catch (IOException | ServletException | SQLException ex) {
+            }*/
+        } catch (SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
          
          
          

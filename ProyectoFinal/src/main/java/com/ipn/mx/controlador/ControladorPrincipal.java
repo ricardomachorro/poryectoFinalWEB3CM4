@@ -62,6 +62,7 @@ public class ControladorPrincipal extends HttpServlet {
             List listaMunicipios= municipioDao.readAll();
             request.setAttribute("listaEstados", listaEstados);
              request.setAttribute("listaMunicipios", listaMunicipios);
+              request.setAttribute("mensaje", "");
             RequestDispatcher rd = request.getRequestDispatcher("registroBeneficiados.jsp");
             rd.forward(request, response);
             

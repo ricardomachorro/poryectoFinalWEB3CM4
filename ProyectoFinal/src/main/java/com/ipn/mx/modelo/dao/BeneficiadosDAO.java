@@ -11,6 +11,8 @@ import com.ipn.mx.utilerias.HibernateUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -116,5 +118,22 @@ public class BeneficiadosDAO {
            }
            return lista;
     }
+      
+      public static void main (String args[]){
+        try {
+            BeneficiadosDTO dto=new BeneficiadosDTO();
+            BeneficiadosDAO dao=new BeneficiadosDAO();
+            dto.getEntidad().setNombreUsuario("rick");
+            dto.getEntidad().setEdad(12);
+            dto.getEntidad().setCalle("sdsads");
+            dto.getEntidad().setCorreo("fdsdsdfs");
+            dto.getEntidad().setContra("1234");
+            dto.getEntidad().setIDMunicipio(126);
+            
+            dao.create(dto);
+        } catch (SQLException ex) {
+            Logger.getLogger(BeneficiadosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
     
 }

@@ -52,10 +52,10 @@
                     <label for="txtMail">Correo</label>
                     <input type="mail" class="form-control" id="txtMail" name="txtMail" >
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
                     <input type="file" class="form-control" id="txtFile" name="txtFile" >
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
                     <input type="password" class="form-control" id="txtPassword" name="txtPassword">
@@ -87,12 +87,15 @@
                                 <c:out value="${dtoMunicipios.entidad.nombre}"/></option>
                         </c:forEach>
                     </select>
+                    
                 </div>
                 <div class="form-group">
                     <label for="txtCodigo">Código</label>
                     <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" >
                 </div>
+              
                 <button type="submit" class="btn btn-primary">Registrarse</button>
+                 <c:out value="${mensaje}" />
             </form>
         </div>
     </body>

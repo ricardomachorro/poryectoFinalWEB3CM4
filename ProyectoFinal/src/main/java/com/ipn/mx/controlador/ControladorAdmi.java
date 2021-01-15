@@ -71,6 +71,9 @@ public class ControladorAdmi extends HttpServlet {
                case "cerrarSesion":
                     cerrarSesion(request, response);
                break;
+               case "verApoyo":
+                    verApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -411,5 +414,32 @@ public class ControladorAdmi extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void verApoyo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int IDVarianteApoyo=Integer.parseInt(request.getParameter("idApoyoVariante"));
+            VariantesApoyosDAO dao=new VariantesApoyosDAO();
+            VariantesApoyosDTO dto =new VariantesApoyosDTO();
+            ApoyosDAO apoDao=new ApoyosDAO();
+            ApoyosDTO apoDto=new ApoyosDTO();
+            MunicipioDAO munDao=new MunicipioDAO();
+            MunicipioDTO munDto=new MunicipioDTO();
+         
+            dto.getEntidad().setIDVarianteApoyo(IDVarianteApoyo);
+            dto=dao.read(dto);
+            apoDto.getEntidad().setIDApoyo(dto.getEntidad().getIDApoyo());
+            apoDto=apoDao.read(apoDto);
+            munDto.getEntidad().setIDMunicipio(dto.getEntidad().getIDMunicipio());
+            munDto=munDao.read(munDto);
+            request.setAttribute("municipio", munDto.getEntidad().getNombre());
+            request.setAttribute("apoyo", apoDto.getEntidad().getComponente());
+            request.setAttribute("varianteApoyoDto", dto);
+             RequestDispatcher rd = request.getRequestDispatcher("verVarianteApoyo.jsp");
+             rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
 
 }

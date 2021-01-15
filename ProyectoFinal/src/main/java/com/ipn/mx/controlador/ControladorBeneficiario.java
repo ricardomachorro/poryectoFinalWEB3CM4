@@ -83,7 +83,7 @@ public class ControladorBeneficiario extends HttpServlet {
                      eliminarApoyo(request, response);
                break;
                case "verPedido":
-                    // eliminarApoyo(request, response);
+                    verPedido(request, response);
                break;
                default :
                break;
@@ -373,6 +373,15 @@ public class ControladorBeneficiario extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void verPedido(HttpServletRequest request, HttpServletResponse response) {
+        //To change body of generated methods, choose Tools | Templates.
+        PedidosDAO pedDao=new PedidosDAO();
+        PedidosDTO pedDto=new PedidosDTO();
+        pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idApoyo")));
+        
+        
     }
 
 }

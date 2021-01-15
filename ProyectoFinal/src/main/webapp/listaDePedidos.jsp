@@ -69,7 +69,7 @@
                         <td>Cantidad</td>
                         <td>Fecha del pedidio</td>-->
                         <td><c:out value="${dtoPedidos.entidad.mesEntrega}"/></td>
-                        <td><a type="button"  class="btn btn-dark">Ver pedido</a></td>
+                        <td><a type="button"  class="btn btn-dark"  href="ControladorBeneficiario?accion=verPedido&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Ver pedido</a></td>
                         <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>
                         <td><a type="button" class="btn btn-success" href="ControladorBeneficiario?accion=actualizarApoyo&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Editar pedido</a></td>
                         <td><a  class="btn btn-danger" href="ControladorBeneficiario?accion=eliminarApoyo&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>" >Cancelar pedido</a></td>

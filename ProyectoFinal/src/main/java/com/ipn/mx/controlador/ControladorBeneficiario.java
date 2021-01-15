@@ -70,17 +70,17 @@ public class ControladorBeneficiario extends HttpServlet {
                case "cargarPanelPrinBen":
                      cargarPanelPrinBen(request, response);
                break;
-               case "nuevoApoyo":
-                     nuevoApoyo(request, response);
+               case "nuevoPedido":
+                     nuevoPedido(request, response);
                break;
-               case "actualizarApoyo":
-                     actualizarApoyo(request, response);
+               case "actualizarPedido":
+                     actualizarPedido(request, response);
                break;
-               case "guardarApoyo":
-                     guardarApoyo(request, response);
+               case "guardarPedido":
+                     guardarPedido(request, response);
                break;
-               case "eliminarApoyo":
-                     eliminarApoyo(request, response);
+               case "eliminarPedido":
+                     eliminarPedido(request, response);
                break;
                case "verPedido":
                     verPedido(request, response);
@@ -248,7 +248,7 @@ public class ControladorBeneficiario extends HttpServlet {
          
      }
     
-      private void nuevoApoyo(HttpServletRequest request, HttpServletResponse response) {
+      private void nuevoPedido(HttpServletRequest request, HttpServletResponse response) {
         try {
             VariantesApoyosDAO dao=new VariantesApoyosDAO();
             VariantesApoyosDTO dto=new VariantesApoyosDTO();
@@ -309,7 +309,7 @@ public class ControladorBeneficiario extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void actualizarApoyo(HttpServletRequest request, HttpServletResponse response) {
+    private void actualizarPedido(HttpServletRequest request, HttpServletResponse response) {
          try {
             VariantesApoyosDAO dao=new VariantesApoyosDAO();
             VariantesApoyosDTO dto=new VariantesApoyosDTO();
@@ -335,7 +335,7 @@ public class ControladorBeneficiario extends HttpServlet {
         }
     }
 
-    private void guardarApoyo(HttpServletRequest request, HttpServletResponse response) {
+    private void guardarPedido(HttpServletRequest request, HttpServletResponse response) {
         try {
             PedidosDAO pedDao=new PedidosDAO();
             PedidosDTO pedDto=new PedidosDTO();
@@ -363,7 +363,7 @@ public class ControladorBeneficiario extends HttpServlet {
         
     }
 
-    private void eliminarApoyo(HttpServletRequest request, HttpServletResponse response) {
+    private void eliminarPedido(HttpServletRequest request, HttpServletResponse response) {
         try {
             PedidosDAO pedDao=new PedidosDAO();
             PedidosDTO pedDto=new PedidosDTO();

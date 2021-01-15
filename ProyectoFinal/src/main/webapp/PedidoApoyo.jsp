@@ -35,7 +35,7 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioNuevoPed" method="post" action="ControladorBeneficiario?accion=guardarApoyo">
+            <form class="formularioNuevoPed" method="post" action="ControladorBeneficiario?accion=guardarPedido">
                 <h2>Nuevo pedido</h2>
                 <input type="hidden" value="<c:out value="${pedidoDto.entidad.IDPedido}" />" 
                        name="idPedido" id="idPedido">

@@ -35,9 +35,10 @@
             </div>
         </nav>
         <div class="container">
-             <form class="formularioNuevoPed">
+            <form class="formularioNuevoPed" method="post" action="ControladorBeneficiario?accion=guardarApoyo">
                 <h2>Nuevo pedido</h2>
-                <input type="hidden" value="<c:out value="${pedidoDto.entidad.IDPedido}" />">
+                <input type="hidden" value="<c:out value="${pedidoDto.entidad.IDPedido}" />" 
+                       name="idPedido" id="idPedido">
                 <div class="form-group">
                     <label for="selMed">Medicamento</label>
                     <select class="form-control" id="selVarApoyo" name="selVarApoyo">

@@ -72,7 +72,7 @@
                         <td><a type="button"  class="btn btn-dark">Ver pedido</a></td>
                         <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>
                         <td><a type="button" class="btn btn-success" href="ControladorBeneficiario?accion=actualizarApoyo&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Editar pedido</a></td>
-                        <td><a  class="btn btn-danger">Cancelar pedido</a></td>
+                        <td><a  class="btn btn-danger" href="ControladorBeneficiario?accion=eliminarApoyo&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>" >Cancelar pedido</a></td>
                         </tr>   
                 </c:forEach>
                     

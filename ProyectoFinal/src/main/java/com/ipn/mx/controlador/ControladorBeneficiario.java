@@ -79,6 +79,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "guardarApoyo":
                      guardarApoyo(request, response);
                break;
+               case "eliminarApoyo":
+                     eliminarApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -330,14 +333,43 @@ public class ControladorBeneficiario extends HttpServlet {
     }
 
     private void guardarApoyo(HttpServletRequest request, HttpServletResponse response) {
-        PedidosDAO pedDao=new PedidosDAO();
-        PedidosDTO pedDto=new PedidosDTO();
-        VariantesApoyosDAO varApoDao=new VariantesApoyosDAO();
-        VariantesApoyosDTO varApoDto=new VariantesApoyosDTO();
-         HttpSession session = request.getSession();
-     //   pedDto.getEntidad().setIDBeneficiado((String)session.getAttribute("idUsuarioBeneficirio"));
+        try {
+            PedidosDAO pedDao=new PedidosDAO();
+            PedidosDTO pedDto=new PedidosDTO();
+            VariantesApoyosDAO varApoDao=new VariantesApoyosDAO();
+            VariantesApoyosDTO varApoDto=new VariantesApoyosDTO();
+            varApoDto.getEntidad().setIDVarianteApoyo(Integer.parseInt(request.getParameter("selVarApoyo")));
+            varApoDto=varApoDao.read(varApoDto);
+            HttpSession session = request.getSession();
+            pedDto.getEntidad().setIDBeneficiado((Integer)session.getAttribute("idUsuarioBeneficirio"));
+            pedDto.getEntidad().setLaboratorio(varApoDto.getEntidad().getLaboratorio());
+            pedDto.getEntidad().setNombreComercial(varApoDto.getEntidad().getNombreComercial());
+            pedDto.getEntidad().setCantidad(Integer.parseInt(request.getParameter("txtCantidad")));
+            pedDto.getEntidad().setMesEntrega(request.getParameter("selMesEntrega"));
+            if(request.getParameter("idPedido").isBlank()){
+              pedDao.create(pedDto);
+            }else{
+               pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idPedido")));
+               pedDao.update(pedDto);
+            }
+            cargarPanelPrinBen(request, response);
+                    } catch (SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
+    }
+
+    private void eliminarApoyo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            PedidosDAO pedDao=new PedidosDAO();
+            PedidosDTO pedDto=new PedidosDTO();
+            pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idApoyo")));
+            pedDao.delete(pedDto);
+             cargarPanelPrinBen(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

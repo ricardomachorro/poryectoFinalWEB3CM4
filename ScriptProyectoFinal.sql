@@ -54,8 +54,9 @@ create table Pedidos(
   NombreComercial varchar(30) not null,
   Laboratorio varchar(30) not null,
   Cantidad int not null,
-  FechaPedido date not null,
-  FechaEntrega date not null,
+  /*FechaPedido date not null,
+  FechaEntrega date not null,*/
+  MesEntrega varchar(30) not null,
   foreign key (IDBeneficiado)
   references Beneficiados( IDBeneficiado )
   on update cascade on delete cascade

@@ -33,6 +33,7 @@ public class Pedidos implements Serializable {
     private String NombreComercial;
     private String Laboratorio;
     private int Cantidad;
-    private Date FechaPedido;
-    private Date FechaEntrega;
+    private String MesEntrega;
+  /*  private Date FechaPedido;
+    private Date FechaEntrega;*/
 }

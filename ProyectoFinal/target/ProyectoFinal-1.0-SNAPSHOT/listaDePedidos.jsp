@@ -53,7 +53,7 @@
                       <!--  <th>Laboratorio</th>
                         <th>Cantidad</th>
                         <th>Fecha del pedidio</th>-->
-                        <th>Fecha de entrega</th>
+                        <th>Mes entrega</th>
                         <th  colspan="4">Opcciones</th>
                        
                     </tr>
@@ -68,10 +68,10 @@
                       <!--  <td>Laboratorio</td>
                         <td>Cantidad</td>
                         <td>Fecha del pedidio</td>-->
-                        <td><c:out value="${dtoPedidos.entidad.fechaEntrega}"/></td>
+                        <td><c:out value="${dtoPedidos.entidad.mesEntrega}"/></td>
                         <td><a type="button"  class="btn btn-dark">Ver pedido</a></td>
                         <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>
-                        <td><a type="button" class="btn btn-success">Editar pedido</a></td>
+                        <td><a type="button" class="btn btn-success" href="ControladorBeneficiario?accion=actualizarApoyo&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Editar pedido</a></td>
                         <td><a  class="btn btn-danger">Cancelar pedido</a></td>
                         </tr>   
                 </c:forEach>

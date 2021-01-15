@@ -73,6 +73,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "nuevoApoyo":
                      nuevoApoyo(request, response);
                break;
+               case "actualizarApoyo":
+                     actualizarApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -296,5 +299,31 @@ public class ControladorBeneficiario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void actualizarApoyo(HttpServletRequest request, HttpServletResponse response) {
+         try {
+            VariantesApoyosDAO dao=new VariantesApoyosDAO();
+            VariantesApoyosDTO dto=new VariantesApoyosDTO();
+            PedidosDAO pedioDao=new PedidosDAO();
+            PedidosDTO pedidoDto=new PedidosDTO();
+            pedidoDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idApoyo")));
+            pedidoDto=pedioDao.read(pedidoDto);
+             HttpSession session = request.getSession();
+             List<VariantesApoyosDTO> listaVariantesApoyos=dao.readAll();
+             List<VariantesApoyosDTO> listaVariantesApoyosSalida=dao.readAll();
+           listaVariantesApoyosSalida.clear();
+             for(int i=0;i<listaVariantesApoyos.size();i++){
+               if(listaVariantesApoyos.get(i).getEntidad().getIDMunicipio()==(Integer)session.getAttribute("idMunBeneficirio")){
+                   listaVariantesApoyosSalida.add(listaVariantesApoyos.get(i));
+               }
+             }
+            RequestDispatcher rd = request.getRequestDispatcher("PedidoApoyo.jsp");
+            request.setAttribute("listaVarianteApoyos",listaVariantesApoyosSalida);
+            request.setAttribute("pedidoDto",pedidoDto);
+            rd.forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

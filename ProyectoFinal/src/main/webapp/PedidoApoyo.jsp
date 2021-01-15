@@ -37,9 +37,10 @@
         <div class="container">
              <form class="formularioNuevoPed">
                 <h2>Nuevo pedido</h2>
+                <input type="hidden" value="<c:out value="${pedidoDto.entidad.IDPedido}" />">
                 <div class="form-group">
                     <label for="selMed">Medicamento</label>
-                    <select class="form-control">
+                    <select class="form-control" id="selVarApoyo" name="selVarApoyo">
                         <option>Seleccione medicamento</option>
                         <c:forEach var="dtoVA" 
                                    items="${listaVarianteApoyos}">
@@ -51,11 +52,48 @@
                 </div>
                 <div class="form-group">
                     <label for="txtCantidad">Cantidad</label>
-                    <input type="number" class="form-control" id="txtCantidad" >
+                    <input type="number" class="form-control" id="txtCantidad" name="txtCantidad" 
+                           value="<c:out value="${pedidoDto.entidad.cantidad}" />">
                 </div>
                   <div class="form-group">
-                    <label for="txtCantidad">Fecha de entrega solicitada</label>
-                    <input type="date" class="form-control" id="txtFechaEntrega" >
+                    <label for="txtMesEntrega">Mes Entrega</label>
+                    <select class="form-control" id="selMesEntrega" name="selMesEntrega">
+                        <option value="Enero" <c:if test="${pedidoDto.entidad.mesEntrega=='Enero'}"> 
+                                    <c:out value="selected" /></c:if>>Enero</option>
+                        <option value="Febrero" <c:if test="${pedidoDto.entidad.mesEntrega=='Febrero'}">
+                           <c:out value="selected" />      
+                        </c:if>>Febrero</option>
+                        <option value="Marzo" <c:if test="${pedidoDto.entidad.mesEntrega=='Marzo'}">
+                            <c:out value="selected" />
+                        </c:if>>Marzo</option>
+                        <option value="Abril" <c:if test="${pedidoDto.entidad.mesEntrega=='Abril'}">
+                             <c:out value="selected" />
+                        </c:if>>Abril</option>
+                        <option value="Mayo"  <c:if test="${pedidoDto.entidad.mesEntrega=='Mayo'}">
+                              <c:out value="selected" />
+                        </c:if>>Mayo</option>
+                        <option value="Junio" <c:if test="${pedidoDto.entidad.mesEntrega=='Junio'}">
+                               <c:out value="selected" />
+                        </c:if>>Junio</option>
+                        <option value="Julio" <c:if test="${pedidoDto.entidad.mesEntrega=='Julio'}">
+                                 <c:out value="selected" />
+                        </c:if> >Julio</option>
+                        <option value="Agosto" <c:if test="${pedidoDto.entidad.mesEntrega=='Agosto'}">
+                                 <c:out value="selected" />
+                        </c:if> >Agosto</option>
+                        <option value="Septiembre" <c:if test="${pedidoDto.entidad.mesEntrega=='Septiembre'}">
+                                 <c:out value="selected" />
+                        </c:if>>Septiembre</option>
+                        <option value="Octubre" <c:if test="${pedidoDto.entidad.mesEntrega=='Octubre'}">
+                                 <c:out value="selected" />
+                        </c:if>>Octubre</option>
+                        <option value="Noviembre" <c:if test="${pedidoDto.entidad.mesEntrega=='Noviembre'}">
+                                 <c:out value="selected" />
+                        </c:if>>Noviembre</option>
+                        <option value="Diciembre" <c:if test="${pedidoDto.entidad.mesEntrega=='Diciembre'}">
+                                <c:out value="selected" />
+                        </c:if >>Diciembre</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar pedido</button>
             </form>

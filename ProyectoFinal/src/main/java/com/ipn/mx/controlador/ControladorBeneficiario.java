@@ -82,6 +82,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "eliminarApoyo":
                      eliminarApoyo(request, response);
                break;
+               case "verPedido":
+                    // eliminarApoyo(request, response);
+               break;
                default :
                break;
         }

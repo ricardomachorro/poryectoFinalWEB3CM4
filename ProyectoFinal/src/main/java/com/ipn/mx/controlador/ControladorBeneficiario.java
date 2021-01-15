@@ -76,6 +76,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "actualizarApoyo":
                      actualizarApoyo(request, response);
                break;
+               case "guardarApoyo":
+                     guardarApoyo(request, response);
+               break;
                default :
                break;
         }
@@ -324,6 +327,17 @@ public class ControladorBeneficiario extends HttpServlet {
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void guardarApoyo(HttpServletRequest request, HttpServletResponse response) {
+        PedidosDAO pedDao=new PedidosDAO();
+        PedidosDTO pedDto=new PedidosDTO();
+        VariantesApoyosDAO varApoDao=new VariantesApoyosDAO();
+        VariantesApoyosDTO varApoDto=new VariantesApoyosDTO();
+         HttpSession session = request.getSession();
+     //   pedDto.getEntidad().setIDBeneficiado((String)session.getAttribute("idUsuarioBeneficirio"));
+        
+        
     }
 
 }

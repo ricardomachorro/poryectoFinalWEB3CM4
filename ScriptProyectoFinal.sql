@@ -474,6 +474,11 @@ values(13,4,'Vacuna','Aztrazeneca');
 select * from variantesapoyos ;
 
 select * from beneficiados;
-
+/*
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)
 values('rick','1234','dsds',12,'ddsds',3);
+
+insert into pedidos (IDBeneficiado,NombreComercial,Laboratorio,Cantidad,FechaPedido,FechaEntrega)
+values(5,'Paracetamol','sssa',2,'1957-06-13','1957-06-13');
+  
+select * from pedidos;*/

@@ -4,6 +4,7 @@
     Author     : Ricardo Alberto
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,8 +26,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                      <a class="nav-link active textoNavBarGeneral" href="index.html">Inicio <span class="sr-only">(current)</span></a>
-                    <a class="nav-link textoNavBarGeneral" href="listaDePedidos.html" >Registro pedidos de beneficios(medicamentos)</a>
-                    <a class="nav-link textoNavBarGeneral" href="nuevoPedidoApoyo.html" >Hacer nuevo pedido de medicamento</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=cargarPanelPrinBen" >Registro pedidos de beneficios(medicamentos)</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=nuevoApoyo" >Hacer nuevo pedido de medicamento</a>
                     <a class="nav-link textoNavBarGeneral" href="actualizacionDatosBeneficiario.html" >Actualizar datos del beneficiado</a>
                     
                     <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
@@ -58,18 +59,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
-                         <td>ID Pedido</td>
-                        <td>Nombre comercial</td>
+                <c:forEach 
+                    var="dtoPedidos"
+                    items="${listaPedidos}">
+                    <tr>
+                        <td><c:out value="${dtoPedidos.entidad.IDPedido}"/></td>
+                        <td><c:out value="${dtoPedidos.entidad.nombreComercial}"/></td>
                       <!--  <td>Laboratorio</td>
                         <td>Cantidad</td>
                         <td>Fecha del pedidio</td>-->
-                        <td>Fecha de entrega</td>
+                        <td><c:out value="${dtoPedidos.entidad.fechaEntrega}"/></td>
                         <td><button type="button"  class="btn btn-dark">Ver pedido</button></td>
                         <td><button type="button" class="btn btn-primary">Comprobante de pedido</button></td>
                         <td><button type="button" class="btn btn-success">Editar pedido</button></td>
                         <td><button  class="btn btn-danger">Cancelar pedido</button></td>
                         </tr>   
+                </c:forEach>
+                    
                   
                 </tbody>
             </table>  

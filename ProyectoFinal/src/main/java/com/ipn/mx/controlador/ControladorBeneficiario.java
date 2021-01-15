@@ -9,9 +9,11 @@ import com.ipn.mx.modelo.dao.BeneficiadosDAO;
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dao.PedidosDAO;
+import com.ipn.mx.modelo.dao.VariantesApoyosDAO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.PedidosDTO;
+import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -64,6 +66,12 @@ public class ControladorBeneficiario extends HttpServlet {
                break;
                case "ingresoBeneficiario":
                      ingresarBeneficiario(request, response);
+               break;
+               case "cargarPanelPrinBen":
+                     cargarPanelPrinBen(request, response);
+               break;
+               case "nuevoApoyo":
+                     nuevoApoyo(request, response);
                break;
                default :
                break;
@@ -228,6 +236,28 @@ public class ControladorBeneficiario extends HttpServlet {
          
      }
     
+      private void nuevoApoyo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            VariantesApoyosDAO dao=new VariantesApoyosDAO();
+            VariantesApoyosDTO dto=new VariantesApoyosDTO();
+             HttpSession session = request.getSession();
+             List<VariantesApoyosDTO> listaVariantesApoyos=dao.readAll();
+             List<VariantesApoyosDTO> listaVariantesApoyosSalida=dao.readAll();
+           listaVariantesApoyosSalida.clear();
+             for(int i=0;i<listaVariantesApoyos.size();i++){
+               if(listaVariantesApoyos.get(i).getEntidad().getIDMunicipio()==(Integer)session.getAttribute("idMunBeneficirio")){
+                   listaVariantesApoyosSalida.add(listaVariantesApoyos.get(i));
+               }
+             }
+            RequestDispatcher rd = request.getRequestDispatcher("PedidoApoyo.jsp");
+            request.setAttribute("listaVarianteApoyos",listaVariantesApoyosSalida);
+            rd.forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+      }
+     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -37,10 +37,11 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Pedidos</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <p class="card-text">IDPedido:<c:out value="${pedidoDTO.entidad.IDPedido}"/></p>
+                <p class="card-text">Nombre Comercial:<c:out value="${pedidoDTO.entidad.nombreComercial}"/></p>
+                <p class="card-text">Laboratorio:<c:out value="${pedidoDTO.entidad.laboratorio}"/></p>
+                <p class="card-text">Cantidad:<c:out value="${pedidoDTO.entidad.cantidad}"/></p>
+                 <p class="card-text">Mes Entrega:<c:out value="${pedidoDTO.entidad.mesEntrega}"/> </p>
                 </div>
             </div>
         </div>

@@ -376,11 +376,18 @@ public class ControladorBeneficiario extends HttpServlet {
     }
 
     private void verPedido(HttpServletRequest request, HttpServletResponse response) {
-        //To change body of generated methods, choose Tools | Templates.
-        PedidosDAO pedDao=new PedidosDAO();
-        PedidosDTO pedDto=new PedidosDTO();
-        pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idApoyo")));
-        
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            PedidosDAO pedDao=new PedidosDAO();
+            PedidosDTO pedDto=new PedidosDTO();
+            pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idApoyo")));
+            pedDto=pedDao.read(pedDto);
+            request.setAttribute("pedidoDTO", pedDto);
+            RequestDispatcher rd = request.getRequestDispatcher("verPedido.jsp");
+            rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

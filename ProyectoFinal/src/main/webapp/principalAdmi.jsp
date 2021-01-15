@@ -27,6 +27,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link active textoNavBarGeneral" href="ControladorAdmi?accion=cargarPanelAdmi">Pagina principal administrador<span class="sr-only">(current)</span></a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=nuevoApoyo" >Hacer nuevo apoyo</a>
+                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=nuevoApoyo" >Lista Beneficiados</a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>

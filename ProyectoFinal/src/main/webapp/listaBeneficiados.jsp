@@ -1,11 +1,10 @@
 <%-- 
-    Document   : principalAdmi
-    Created on : 12 ene 2021, 12:35:19
+    Document   : listaBeneficiados
+    Created on : 15 ene 2021, 15:00:57
     Author     : Ricardo Alberto
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,47 +48,19 @@
             <table class="table table-striped tablaPer">
                 <thead>
                     <tr>
-                        <th>ID Variante Apoyo</th>
+                        <th>ID Beneficiado</th>
+                        <th>Nombre usuario</th>
+                        <th>Calle</th>
+                        <th>Edad</th>
+                        <th>Correo</th>
                         <th>Municipio</th>
-                        <th>Apoyo</th>
-                        <th>Laboratorio</th>
-                        <th>Nombre comercial</th>
-                        <!-- <th>Editar datos del apoyo</th>
-                         <th>Eliminar apoyo</th>-->
-                        <th colspan="3">Opcciones</th>
+                        <th>Opcciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     
-                    <c:forEach
-                            var="dtoVariantesApoyos"
-                            items="${listaVariantesApoyos}">
-                            <tr>
-                                <td><c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/></td>
-                            <c:forEach
-                            var="dtoMumicipios"
-                            items="${listaMunicipios}">
-                                <c:if test = "${dtoVariantesApoyos.entidad.IDMunicipio==dtoMumicipios.entidad.IDMunicipio}">
-                                    <td><c:out value="${dtoMumicipios.entidad.nombre}"/></td>
-                                </c:if>
-                                
-                             </c:forEach>
-                              <c:forEach
-                            var="dtoApoyos"
-                            items="${listaApoyos}">
-                                <c:if test = "${dtoVariantesApoyos.entidad.IDApoyo==dtoApoyos.entidad.IDApoyo}">
-                                    <td><c:out value="${dtoApoyos.entidad.componente}"/></td>
-                                </c:if>
-                                
-                             </c:forEach>
-                       
                     
-                    <td><c:out value="${dtoVariantesApoyos.entidad.laboratorio}"/></td>
-                    <td><c:out value="${dtoVariantesApoyos.entidad.nombreComercial}"/></td>
-                       <td><a   class="btn btn-dark" href="ControladorAdmi?accion=verApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Ver datos apoyo</a></td>
-                        <td><a  class="btn btn-success" href="ControladorAdmi?accion=editarApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Editar</a></td>
-                        <td><a  class="btn btn-danger" href="ControladorAdmi?accion=eliminarApoyo&idApoyoVariante=<c:out value="${dtoVariantesApoyos.entidad.IDVarianteApoyo}"/>" >Eliminar</a></td></tr>
-                    </c:forEach>
                     
                
 
@@ -103,4 +74,5 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 </html>
+
 

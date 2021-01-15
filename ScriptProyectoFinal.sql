@@ -470,6 +470,8 @@ values(128,4,'Paracetamol','Aztrazeneca');
 insert into variantesapoyos (IDMunicipio,IDApoyo,NombreComercial,Laboratorio)
 values(126,4,'Paracetamol','Aztrazeneca');
 insert into variantesapoyos (IDMunicipio,IDApoyo,NombreComercial,Laboratorio)
+values(126,4,'P1','P2');
+insert into variantesapoyos (IDMunicipio,IDApoyo,NombreComercial,Laboratorio)
 values(13,4,'Vacuna','Aztrazeneca');
   
 select * from variantesapoyos ;
@@ -478,6 +480,8 @@ select * from beneficiados;
 
 insert into pedidos (IDBeneficiado,NombreComercial,Laboratorio,Cantidad,MesEntrega)
 values(5,'Paracetamol','sssa',2,'Septiembre');
+
+select * from pedidos;
 /*
 insert into Beneficiados(nombreUsaurio,contra,calle,edad,CURP,idmunicipio)
 values('rick','1234','dsds',12,'ddsds',3);

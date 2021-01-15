@@ -6,10 +6,12 @@
 package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.ApoyosDAO;
+import com.ipn.mx.modelo.dao.BeneficiadosDAO;
 import com.ipn.mx.modelo.dao.EstadoDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dao.VariantesApoyosDAO;
 import com.ipn.mx.modelo.dto.ApoyosDTO;
+import com.ipn.mx.modelo.dto.BeneficiadosDTO;
 import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
@@ -73,6 +75,12 @@ public class ControladorAdmi extends HttpServlet {
                break;
                case "verApoyo":
                     verApoyo(request, response);
+               break;
+               case "listaBeneficiados":
+                    listaBeneficiados(request,response);
+               break;
+                case "eliminarBeneficiados":
+                    eliminarBeneficiado(request,response);
                break;
                default :
                break;
@@ -440,6 +448,52 @@ public class ControladorAdmi extends HttpServlet {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+    }
+
+    private void listaBeneficiados(HttpServletRequest request, HttpServletResponse response) {
+       //To change body of generated methods, choose Tools | Templates.
+        try {
+            BeneficiadosDAO dao=new  BeneficiadosDAO();
+            List<BeneficiadosDTO> listaBeneficiados=dao.readAll();
+             List<BeneficiadosDTO> listaBeneficiadosSalida=dao.readAll();
+             listaBeneficiadosSalida.clear();
+            MunicipioDAO munDao=new MunicipioDAO();
+            List<MunicipioDTO> listaMunicipios=munDao.readAll();
+            HttpSession session = request.getSession();
+            EstadoDTO usuarioEstado= (EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+            for(int i=0;i<listaBeneficiados.size();i++){
+              MunicipioDTO munDto=new MunicipioDTO();
+              int IDMunBen=listaBeneficiados.get(i).getEntidad().getIDMunicipio();
+              munDto.getEntidad().setIDMunicipio(IDMunBen);
+              munDto=munDao.read(munDto);
+              if(munDto.getEntidad().getIDEstado()==usuarioEstado.getEntidad().getIDEstado()){
+                 listaBeneficiadosSalida.add(listaBeneficiados.get(i));
+              }
+            }
+         
+          request.setAttribute("listaMunicipio", listaMunicipios);
+          request.setAttribute("listaBeneficiados",listaBeneficiadosSalida);
+         RequestDispatcher rd = request.getRequestDispatcher("listaBeneficiados.jsp");
+       
+            rd.forward(request, response);
+        } catch (ServletException | IOException | SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void eliminarBeneficiado(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            
+            BeneficiadosDAO dao=new BeneficiadosDAO();
+            BeneficiadosDTO dto=new BeneficiadosDTO();
+            dto.getEntidad().setIDBeneficiado(Integer.parseInt(request.getParameter("idBeneficiado")));
+             dao.delete(dto);
+            listaBeneficiados(request, response);
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

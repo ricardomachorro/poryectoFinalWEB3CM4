@@ -59,7 +59,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <c:forEach var="dtoBen" items="${listaBeneficiados}">
+                        <tr>
+                            <td><c:out value="${dtoBen.entidad.IDBeneficiado}"/></td>
+                            <td><c:out value="${dtoBen.entidad.nombreUsuario}"/></td>
+                            <td><c:out value="${dtoBen.entidad.calle}"/></td>
+                            <td><c:out value="${dtoBen.entidad.edad}"/></td>
+                             <td><c:out value="${dtoBen.entidad.correo}"/></td>
+                             <c:forEach var="dtoMun" items="${listaMunicipio}">
+                                 <c:if test="${dtoBen.entidad.IDMunicipio==dtoMun.entidad.IDMunicipio}">
+                                     <td><c:out value="${dtoMun.entidad.nombre}"/></td>
+                                 </c:if>
+                             </c:forEach>
+                            <td><a  class="btn btn-danger" href="ControladorAdmi?accion=eliminarBeneficiados&idBeneficiado=<c:out value="${dtoBen.entidad.IDBeneficiado}"/>" >Eliminar</a></td>
+                        </tr>
+                        
+                    </c:forEach>
                     
                     
                

@@ -69,10 +69,10 @@
                         <td>Cantidad</td>
                         <td>Fecha del pedidio</td>-->
                         <td><c:out value="${dtoPedidos.entidad.fechaEntrega}"/></td>
-                        <td><button type="button"  class="btn btn-dark">Ver pedido</button></td>
-                        <td><button type="button" class="btn btn-primary">Comprobante de pedido</button></td>
-                        <td><button type="button" class="btn btn-success">Editar pedido</button></td>
-                        <td><button  class="btn btn-danger">Cancelar pedido</button></td>
+                        <td><a type="button"  class="btn btn-dark">Ver pedido</a></td>
+                        <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>
+                        <td><a type="button" class="btn btn-success">Editar pedido</a></td>
+                        <td><a  class="btn btn-danger">Cancelar pedido</a></td>
                         </tr>   
                 </c:forEach>
                     

@@ -40,9 +40,7 @@
                     <img class="imgOpccionesLista" src="img/mexico.png">
                     <img class="imgOpccionesLista" src="img/mujer.png">
                     <p class="card-text">Informe de los apoyos en los municipios</p>
-                     <p><c:out value="${listaVariantesApoyosSize}"/></p>
-            <p><c:out value="${listaApoyosSize}"/></p>
-            <p><c:out value="${listaMunicipiosSize}"/></p>
+           
                     <a href="" class="card-link">Ver los apoyos mas solicitados por municipio</a>
                     <a href="" class="card-link">Generar reporte de beneficiados por municipio</a>
                 </div>

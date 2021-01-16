@@ -27,16 +27,33 @@
                 <div class="navbar-nav">
                     <a class="nav-link active textoNavBarGeneral" href="ControladorAdmi?accion=cargarPanelAdmi">Pagina principal administrador<span class="sr-only">(current)</span></a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=nuevoApoyo" >Hacer nuevo apoyo</a>
-                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=listaBeneficiados" >Lista Beneficiados</a>
-                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=configuracionAdmi" >Cambiar datos administrador</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=listaBeneficiados" >Lista Beneficiados</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=configuracionAdmi" >Cambiar datos administrador</a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorAdmi?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>
         <div class="container">
-           
-            
-           
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Datos administrado del estado: <c:out value="${dtoEstado.entidad.nombre}"/></h5>
+                    <form class="formularioNuevoPed" method="post" action="ControladorAdmi?accion=guardarCambiosConfiguracionAdmi">
+                        <div class="form-group">
+                            <label for="txtNombre">Nombre</label>
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" required
+                                   value="<c:out value="${dtoEstado.entidad.nombreUsuarioEncargado}" />">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="txtPassword" name="txtPassword" required
+                                   value="<c:out value="${dtoEstado.entidad.contra}" />">
+                        </div>
+                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+
+
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>

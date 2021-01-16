@@ -85,6 +85,9 @@ public class ControladorAdmi extends HttpServlet {
                 case "configuracionAdmi":
                     configuracionAdmi(request,response);
                break;
+               case "guardarCambiosConfiguracionAdmi":
+                    guardarCambiosConfiguracionAdmi(request,response);
+               break;
                default :
                break;
         }
@@ -500,7 +503,37 @@ public class ControladorAdmi extends HttpServlet {
     }
 
     private void configuracionAdmi(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            HttpSession session = request.getSession();
+            EstadoDTO usuarioEstado= (EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+            request.setAttribute("dtoEstado",usuarioEstado );
+            RequestDispatcher rd = request.getRequestDispatcher("configuracionAdmi.jsp");
+            rd.forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+
+    private void guardarCambiosConfiguracionAdmi(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            HttpSession session = request.getSession();
+            EstadoDTO usuarioEstado= (EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+            EstadoDAO dao=new EstadoDAO();
+            usuarioEstado.getEntidad().setNombreUsuarioEncargado(request.getParameter("txtNombre"));
+            usuarioEstado.getEntidad().setContra(request.getParameter("txtPassword"));
+            dao.update(usuarioEstado);
+            session.removeAttribute("usuarioEstadosDatos");
+            session.setAttribute("usuarioEstadosDatos",usuarioEstado);
+            cargarPanelAdmi(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
     }
 
 }

@@ -37,7 +37,7 @@
         <div class="container">
             <div class="card cartaOpccionesExtra">
                 <div class="card-body">
-                    <h5 class="card-title">Opcciones extra de los pedidos </h5>
+                    <h5 class="card-title">Lista de pedidos </h5>
                     <img class="imgOpccionesLista" src="img/tableta.png">
                     <img class="imgOpccionesLista" src="img/medicamento.png">
                <!--     <p class="card-text">Aqui hay unas opcciones extra para las clases de los pedidos</p>

@@ -85,6 +85,9 @@ public class ControladorBeneficiario extends HttpServlet {
                case "verPedido":
                     verPedido(request, response);
                break;
+               case "formularioActualizarDatosBeneficiario":
+                   formularioActualizarDatosBeneficiario(request, response);
+               break;
                default :
                break;
         }
@@ -394,6 +397,23 @@ public class ControladorBeneficiario extends HttpServlet {
             pedDto=pedDao.read(pedDto);
             request.setAttribute("pedidoDTO", pedDto);
             RequestDispatcher rd = request.getRequestDispatcher("verPedido.jsp");
+            rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    private void formularioActualizarDatosBeneficiario(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            BeneficiadosDAO dao=new BeneficiadosDAO();
+            BeneficiadosDTO dto=new BeneficiadosDTO();
+            HttpSession session = request.getSession();
+            dto.getEntidad().setIDBeneficiado((Integer)session.getAttribute("idUsuarioBeneficirio"));
+            dto=dao.read(dto);
+            request.setAttribute("dtoBeneficiario", dto);
+            RequestDispatcher rd = request.getRequestDispatcher("actualizacionDatosBeneficiario.jsp");
             rd.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);

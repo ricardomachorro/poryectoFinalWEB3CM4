@@ -54,10 +54,10 @@
                     <label for="txtCURP">CURP</label>
                     <input type="text" class="form-control" id="txtCURP" >
                 </div>
-                <div class="form-group">
+              <!--  <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
                     <input type="file" class="form-control" id="txtFile" >
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
                     <input type="password" class="form-control" id="txtPassword">

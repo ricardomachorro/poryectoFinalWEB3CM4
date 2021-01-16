@@ -82,6 +82,9 @@ public class ControladorAdmi extends HttpServlet {
                 case "eliminarBeneficiados":
                     eliminarBeneficiado(request,response);
                break;
+                case "configuracionAdmi":
+                    configuracionAdmi(request,response);
+               break;
                default :
                break;
         }
@@ -494,6 +497,10 @@ public class ControladorAdmi extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void configuracionAdmi(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -18,6 +18,7 @@ import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
 import com.ipn.mx.modelo.entidades.Estado;
 import com.ipn.mx.modelo.entidades.Municipio;
 import com.ipn.mx.modelo.entidades.VariantesApoyos;
+import com.ipn.mx.utilerias.EnviarEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -494,6 +495,11 @@ public class ControladorAdmi extends HttpServlet {
             BeneficiadosDAO dao=new BeneficiadosDAO();
             BeneficiadosDTO dto=new BeneficiadosDTO();
             dto.getEntidad().setIDBeneficiado(Integer.parseInt(request.getParameter("idBeneficiado")));
+            dto=dao.read(dto);
+            EnviarEmail mail =new EnviarEmail();
+            String asunto="Borrado decuenta sistema de apoyos";
+            String mensaje="Usuario "+dto.getEntidad().getNombreUsuario()+ " su cuenta ha sido eliminada del sistema de apoyos junto con todos su pedidios";
+            mail.enviarCorreo(dto.getEntidad().getCorreo(), asunto, mensaje);
              dao.delete(dto);
             listaBeneficiados(request, response);
            

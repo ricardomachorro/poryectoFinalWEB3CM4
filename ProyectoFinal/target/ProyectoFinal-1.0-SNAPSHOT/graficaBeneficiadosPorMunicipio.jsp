@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/navBarGeneral.css" >
         <link rel="stylesheet" href="css/generalCSS.css" >
         <link rel="stylesheet" href="css/principalAdmCSS.css" >
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" ></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg  navBarGeneral">
@@ -34,7 +35,7 @@
             </div>
         </nav>
         <div class="container">
-            
+            <canvas id="myChart" ></canvas>
             
            
         </div>

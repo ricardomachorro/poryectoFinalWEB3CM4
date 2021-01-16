@@ -195,15 +195,17 @@ public class ControladorBeneficiario extends HttpServlet {
                     dto.getEntidad().setCorreo(request.getParameter("txtMail"));
                     dto.getEntidad().setContra(request.getParameter("txtPassword"));
                     dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
-                    dao.create(dto);
-                     listaBen=dao.readAll();
+                   
+                    if(request.getParameter("txtIdBeneficiario").isBlank()){
+                       dao.create(dto);
+                   /*  listaBen=dao.readAll();
                       for(int i=0;i<listaBen.size();i++){
                         BeneficiadosDTO usuariAna=(BeneficiadosDTO)listaBen.get(i);
                         if(usuariAna.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre"))){
                             dto.getEntidad().setIDBeneficiado(usuariAna.getEntidad().getIDBeneficiado());
                         }
                     }
-                 /*    HttpSession session = request.getSession();
+                    HttpSession session = request.getSession();
                      session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
                      session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
                     request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
@@ -213,17 +215,36 @@ public class ControladorBeneficiario extends HttpServlet {
                  rd.forward(request, response);
                   //  request.setAttribute("mensaje",dto.getEntidad());
                   //   cargarDatosSignUpBene(request, response);
+                    }else{
+                        dto.getEntidad().setIDBeneficiado(Integer.parseInt(request.getParameter("txtIdBeneficiario")));
+                        dao.update(dto);
+                        HttpSession session = request.getSession();
+                         session.removeAttribute("idUsuarioBeneficirio");
+                         session.removeAttribute("idMunBeneficirio");
+                     session.setAttribute("idUsuarioBeneficirio",Integer.parseInt(request.getParameter("txtIdBeneficiario")));
+                     session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
+                        cargarPanelPrinBen(request, response);
+                    }
+                    
                      
                 }else{
                     request.setAttribute("mensaje","Nombre de Usuario ya usado");
-                      cargarDatosSignUpBene(request, response);
+                    if(request.getParameter("txtIdBeneficiario").isBlank()){
+                       cargarDatosSignUpBene(request, response);
+                    }else{
+                       formularioActualizarDatosBeneficiario(request, response);
+                    }
+                      
                 }
               
                
             }else{
                  request.setAttribute("mensaje","codigo incorrecto");
-                
-                 cargarDatosSignUpBene(request, response);
+                if(request.getParameter("txtIdBeneficiario").isBlank()){
+                       cargarDatosSignUpBene(request, response);
+                    }else{
+                        formularioActualizarDatosBeneficiario(request, response);
+                    }
             }
             /*  try {
             Part filePart = request.getPart("txtFile");
@@ -407,6 +428,13 @@ public class ControladorBeneficiario extends HttpServlet {
     private void formularioActualizarDatosBeneficiario(HttpServletRequest request, HttpServletResponse response) {
         try {
             //To change body of generated methods, choose Tools | Templates.
+             EstadoDAO estadosDao = new EstadoDAO();
+          MunicipioDAO municipioDao=new MunicipioDAO();
+      
+            List listaEstados = estadosDao.readAll();
+            List listaMunicipios= municipioDao.readAll();
+            request.setAttribute("listaEstados", listaEstados);
+             request.setAttribute("listaMunicipios", listaMunicipios);
             BeneficiadosDAO dao=new BeneficiadosDAO();
             BeneficiadosDTO dto=new BeneficiadosDTO();
             HttpSession session = request.getSession();

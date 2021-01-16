@@ -36,6 +36,7 @@
             <form class="formularioRegBen" method="post" action="ControladorBeneficiario?accion=registroBeneficiario" 
                    enctype="multipart/form-data">
                 <h2>Registro Beneficiados</h2>
+                <input type="hidden" class="form-control" id="txtIdBeneficiario" name="txtIdBeneficiario" value="">
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
                     <input type="text" class="form-control" id="txtNombre" name="txtNombre" >

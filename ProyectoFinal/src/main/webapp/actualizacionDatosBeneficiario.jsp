@@ -36,54 +36,90 @@
             </div>
         </nav>
         <div class="container">
-            <form class="formularioRegAdm">
+            <form class="formularioRegAdm" method="post" action="ControladorBeneficiario?accion=registroBeneficiario" 
+                   enctype="multipart/form-data">
                 <h2>Actualización datos beneficiados</h2>
-                <div class="form-group">
+                  <input type="hidden" class="form-control" id="txtIdBeneficiario" name="txtIdBeneficiario"
+                         value="<c:out value="${dtoBeneficiario.entidad.IDBeneficiado}"/>">
+                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" >
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre"
+                           value="<c:out value="${dtoBeneficiario.entidad.nombreUsuario}" />">
                 </div>
                 <div class="form-group">
                     <label for="txtEdad">Edad</label>
-                    <input type="number" class="form-control" id="txtEdad" >
+                    <input type="number" class="form-control" id="txtEdad" name="txtEdad"
+                            value="<c:out value="${dtoBeneficiario.entidad.edad}" />">
                 </div>
                 <div class="form-group">
                     <label for="txtCalle">Calle</label>
-                    <input type="text" class="form-control" id="txtCalle" >
+                    <input type="text" class="form-control" id="txtCalle" name="txtCalle"
+                            value="<c:out value="${dtoBeneficiario.entidad.calle}" />">
                 </div>
                 <div class="form-group">
-                    <label for="txtCURP">CURP</label>
-                    <input type="text" class="form-control" id="txtCURP" >
+                    <label for="txtMail">Correo</label>
+                    <input type="mail" class="form-control" id="txtMail" name="txtMail" 
+                            value="<c:out value="${dtoBeneficiario.entidad.correo}" />">
                 </div>
-              <!--  <div class="form-group">
+               <!-- <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
-                    <input type="file" class="form-control" id="txtFile" >
+                    <input type="file" class="form-control" id="txtFile" name="txtFile" >
                 </div>-->
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword">
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword">
                 </div>
                 <div class="form-group">
                     <label for="selEstado">Estado</label>
-                    <select class="form-control">
-                        <option>Seleccione estado</option>
-                        <option>2</option>
+                    <select value="0" 
+                            name="selectEstado" 
+                            id="selectEstado" class="form-control">
+                        <option >Seleccione estado</option>
+                        <c:forEach
+                            var="dtoEstados"
+                            items="${listaEstados}">
+                            <option  value="<c:out value="${dtoEstados.entidad.IDEstado}"/>" ><c:out value="${dtoEstados.entidad.nombre}"/></option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>
-                    <select class="form-control">
-                        <option>Seleccione municipio</option>
-                        <option>2</option>
+                    <select class="form-control"
+                            id="selectMunicipio"
+                            name="selectMunicipio" class="form-control">
+                        <option IDEstado="0">Seleccione municipio</option>
+                        <c:forEach
+                            var="dtoMunicipios"
+                            items="${listaMunicipios}">
+                            <option hidden  value="<c:out value="${dtoMunicipios.entidad.IDMunicipio}"/>" 
+                            IDEstado="<c:out value="${dtoMunicipios.entidad.IDEstado}"/>" >
+                                <c:out value="${dtoMunicipios.entidad.nombre}"/></option>
+                        </c:forEach>
                     </select>
+                    
                 </div>
                 <div class="form-group">
                     <label for="txtCodigo">Código</label>
-                    <input type="text" class="form-control" id="txtCodigo" >
+                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" >
                 </div>
                 <button type="submit" class="btn btn-primary">Actualizar</button>
+                <c:out value="${mensaje}" />
             </form>
         </div>
-         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         
+          $('#selectEstado').on('change', function(){
+               var valorEstado = $(this).val();
+                $('#selectMunicipio option[IDEstado='+valorEstado+']').removeAttr('hidden');
+                $('#selectMunicipio option[IDEstado!='+valorEstado+']').attr('hidden','hidden');
+                $("#selectMunicipio option[IDEstado='0']").removeAttr('hidden');
+          });
+         
+     });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
     </body>

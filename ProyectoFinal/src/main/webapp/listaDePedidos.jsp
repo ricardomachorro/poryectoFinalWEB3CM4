@@ -40,9 +40,9 @@
                     <h5 class="card-title">Opcciones extra de los pedidos </h5>
                     <img class="imgOpccionesLista" src="img/tableta.png">
                     <img class="imgOpccionesLista" src="img/medicamento.png">
-                     <p class="card-text">Aqui hay unas opcciones extra para las clases de los pedidos</p>
+               <!--     <p class="card-text">Aqui hay unas opcciones extra para las clases de los pedidos</p>
                     <a href="" class="card-link">Ver los 5 medicamentos más pedidos en tu municipio</a>
-                    <a href="" class="card-link">Generar comprobante de pedidos hechos hasta la fecha</a>
+                    <a href="" class="card-link">Generar comprobante de pedidos hechos hasta la fecha</a>-->
                 </div>
             </div>
              <table class="table table-striped tablaPer">
@@ -70,7 +70,7 @@
                         <td>Fecha del pedidio</td>-->
                         <td><c:out value="${dtoPedidos.entidad.mesEntrega}"/></td>
                         <td><a type="button"  class="btn btn-dark"  href="ControladorBeneficiario?accion=verPedido&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Ver pedido</a></td>
-                        <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>
+                     <!--   <td><a type="button" class="btn btn-primary">Comprobante de pedido</a></td>-->
                         <td><a type="button" class="btn btn-success" href="ControladorBeneficiario?accion=actualizarPedido&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>">Editar pedido</a></td>
                         <td><a  class="btn btn-danger" href="ControladorBeneficiario?accion=eliminarPedido&idApoyo=<c:out value="${dtoPedidos.entidad.IDPedido}"/>" >Cancelar pedido</a></td>
                         </tr>   

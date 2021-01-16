@@ -40,19 +40,19 @@
                 <input type="hidden" class="form-control" id="txtIdBeneficiario" name="txtIdBeneficiario" value="">
                 <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" >
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required >
                 </div>
                 <div class="form-group">
                     <label for="txtEdad">Edad</label>
-                    <input type="number" class="form-control" id="txtEdad" name="txtEdad">
+                    <input type="number" class="form-control" id="txtEdad" name="txtEdad" required>
                 </div>
                 <div class="form-group">
                     <label for="txtCalle">Calle</label>
-                    <input type="text" class="form-control" id="txtCalle" name="txtCalle">
+                    <input type="text" class="form-control" id="txtCalle" name="txtCalle" required>
                 </div>
                 <div class="form-group">
                     <label for="txtMail">Correo</label>
-                    <input type="mail" class="form-control" id="txtMail" name="txtMail" >
+                    <input type="mail" class="form-control" id="txtMail" name="txtMail" required>
                 </div>
                <!-- <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
@@ -60,13 +60,13 @@
                 </div>-->
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword" required>
                 </div>
                 <div class="form-group">
                     <label for="selEstado">Estado</label>
                     <select value="0" 
                             name="selectEstado" 
-                            id="selectEstado" class="form-control">
+                            id="selectEstado" class="form-control" required>
                         <option >Seleccione estado</option>
                         <c:forEach
                             var="dtoEstados"
@@ -79,7 +79,7 @@
                     <label for="selMunicipio">Municipio</label>
                     <select class="form-control"
                             id="selectMunicipio"
-                            name="selectMunicipio" class="form-control">
+                            name="selectMunicipio" class="form-control" required>
                         <option IDEstado="0">Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipios"
@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txtCodigo">Código</label>
-                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" >
+                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" required>
                 </div>
               
                 <button type="submit" class="btn btn-primary">Registrarse</button>

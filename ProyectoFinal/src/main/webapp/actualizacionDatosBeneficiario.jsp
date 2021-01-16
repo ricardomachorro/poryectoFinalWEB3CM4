@@ -43,22 +43,22 @@
                          value="<c:out value="${dtoBeneficiario.entidad.IDBeneficiado}"/>">
                  <div class="form-group">
                     <label for="txtNombre">Nombre</label>
-                    <input type="text" class="form-control" id="txtNombre" name="txtNombre"
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required
                            value="<c:out value="${dtoBeneficiario.entidad.nombreUsuario}" />">
                 </div>
                 <div class="form-group">
                     <label for="txtEdad">Edad</label>
-                    <input type="number" class="form-control" id="txtEdad" name="txtEdad"
+                    <input type="number" class="form-control" id="txtEdad" name="txtEdad" required
                             value="<c:out value="${dtoBeneficiario.entidad.edad}" />">
                 </div>
                 <div class="form-group">
                     <label for="txtCalle">Calle</label>
-                    <input type="text" class="form-control" id="txtCalle" name="txtCalle"
+                    <input type="text" class="form-control" id="txtCalle" name="txtCalle" required
                             value="<c:out value="${dtoBeneficiario.entidad.calle}" />">
                 </div>
                 <div class="form-group">
                     <label for="txtMail">Correo</label>
-                    <input type="mail" class="form-control" id="txtMail" name="txtMail" 
+                    <input type="mail" class="form-control" id="txtMail" name="txtMail" required
                             value="<c:out value="${dtoBeneficiario.entidad.correo}" />">
                 </div>
                <!-- <div class="form-group">
@@ -67,11 +67,11 @@
                 </div>-->
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword" required>
                 </div>
                 <div class="form-group">
                     <label for="selEstado">Estado</label>
-                    <select value="0" 
+                    <select required value="0" 
                             name="selectEstado" 
                             id="selectEstado" class="form-control">
                         <option >Seleccione estado</option>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group">
                     <label for="selMunicipio">Municipio</label>
-                    <select class="form-control"
+                    <select required class="form-control"
                             id="selectMunicipio"
                             name="selectMunicipio" class="form-control">
                         <option IDEstado="0">Seleccione municipio</option>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="form-group">
                     <label for="txtCodigo">Código</label>
-                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" >
+                    <input type="text" class="form-control" id="txtCodigo" name="txtCodigo"  required>
                 </div>
                 <button type="submit" class="btn btn-primary">Actualizar</button>
                 <c:out value="${mensaje}" />

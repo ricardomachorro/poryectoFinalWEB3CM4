@@ -41,7 +41,7 @@
                        name="idPedido" id="idPedido">
                 <div class="form-group">
                     <label for="selMed">Medicamento</label>
-                    <select class="form-control" id="selVarApoyo" name="selVarApoyo">
+                    <select class="form-control" id="selVarApoyo" name="selVarApoyo" required>
                         <option>Seleccione medicamento</option>
                         <c:forEach var="dtoVA" 
                                    items="${listaVarianteApoyos}">
@@ -53,12 +53,12 @@
                 </div>
                 <div class="form-group">
                     <label for="txtCantidad">Cantidad</label>
-                    <input type="number" class="form-control" id="txtCantidad" name="txtCantidad" 
+                    <input required type="number" class="form-control" id="txtCantidad" name="txtCantidad" 
                            value="<c:out value="${pedidoDto.entidad.cantidad}" />">
                 </div>
                   <div class="form-group">
                     <label for="txtMesEntrega">Mes Entrega</label>
-                    <select class="form-control" id="selMesEntrega" name="selMesEntrega">
+                    <select required class="form-control" id="selMesEntrega" name="selMesEntrega">
                         <option value="Enero" <c:if test="${pedidoDto.entidad.mesEntrega=='Enero'}"> 
                                     <c:out value="selected" /></c:if>>Enero</option>
                         <option value="Febrero" <c:if test="${pedidoDto.entidad.mesEntrega=='Febrero'}">

@@ -10,6 +10,8 @@ create table Estado(
  
  /*delete from estado;*/
 /* drop table estado;*/
+ 
+ select * from estado;
 
  create table Municipio(
   IDMunicipio serial primary key,

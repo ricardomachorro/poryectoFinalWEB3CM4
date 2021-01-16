@@ -31,8 +31,11 @@ public class GraficaDAO {
      Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = sesion.getTransaction();
         List lista = new ArrayList();
-
+       
+        MunicipioDAO munDao=new MunicipioDAO();
+        
         try {
+            List<MunicipioDTO> listaMunicipio=munDao.readAll();
             transaction.begin();
             //select * from usuario as u order by u.idUsuario;
             //int x;
@@ -49,10 +52,13 @@ public class GraficaDAO {
               
                 Object[] element = (Object[]) item;
                 int IDMunicipio=(Integer)element[1];
-                 MunicipioDAO munDao=new MunicipioDAO();
             MunicipioDTO munDto=new MunicipioDTO();
-                munDto.getEntidad().setIDMunicipio(IDMunicipio);
-                munDto=munDao.read(munDto);
+             for(int i=0;i<listaMunicipio.size();i++){
+                if(listaMunicipio.get(i).getEntidad().getIDMunicipio()==IDMunicipio){
+                   munDto=listaMunicipio.get(i);
+                }
+             }
+            
                 if(munDto.getEntidad().getIDEstado()==IDEstado){
                    GraficaDTO dto=new GraficaDTO();
                    dto.setNombre(munDto.getEntidad().getNombre());

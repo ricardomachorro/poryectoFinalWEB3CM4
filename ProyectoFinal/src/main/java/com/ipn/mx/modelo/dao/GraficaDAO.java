@@ -25,62 +25,54 @@ import org.hibernate.type.IntegerType;
  * @author Ricardo Alberto
  */
 public class GraficaDAO {
-    
-    public List datosGraficaBeneficiadosPorMunicipio(int IDEstado){
-    
-     Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction transaction = sesion.getTransaction();
+
+    public List datosGraficaBeneficiadosPorMunicipio(int IDEstado) {
+
         List lista = new ArrayList();
-       
-        MunicipioDAO munDao=new MunicipioDAO();
-        
         try {
-            List<MunicipioDTO> listaMunicipio=munDao.readAll();
-            transaction.begin();
-            //select * from usuario as u order by u.idUsuario;
-            //int x;
-            //Usuario u
-            //
-           
-         
-            Query q = sesion.createSQLQuery(" select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio").
-                    addScalar("conteo",new IntegerType()).addScalar("IDMunicipio",new IntegerType());
-           
-          
-            for (Object item : q.list()) {
-             
-              
-                Object[] element = (Object[]) item;
-                int IDMunicipio=(Integer)element[1];
-            MunicipioDTO munDto=new MunicipioDTO();
-             for(int i=0;i<listaMunicipio.size();i++){
-                if(listaMunicipio.get(i).getEntidad().getIDMunicipio()==IDMunicipio){
-                   munDto=listaMunicipio.get(i);
-                }
-             }
+             MunicipioDAO munDao = new MunicipioDAO();
+            List<MunicipioDTO> listaMunicipio = munDao.readAll();
+            Session sesion = HibernateUtil.getSessionFactory().getCurrentSession();
             
-                if(munDto.getEntidad().getIDEstado()==IDEstado){
-                   GraficaDTO dto=new GraficaDTO();
-                   dto.setNombre(munDto.getEntidad().getNombre());
-                   dto.setCantidad((Integer)element[0]);
-                   lista.add(dto);
+            Transaction transaction = sesion.getTransaction();
+            
+
+            transaction.begin();
+
+            Query q = sesion.createSQLQuery(" select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio").
+                    addScalar("conteo", new IntegerType()).addScalar("IDMunicipio", new IntegerType());
+
+            for (Object item : q.list()) {
+
+                Object[] element = (Object[]) item;
+                int IDMunicipio = (Integer) element[1];
+                MunicipioDTO munDto = new MunicipioDTO();
+                for (int i = 0; i < listaMunicipio.size(); i++) {
+                    if (listaMunicipio.get(i).getEntidad().getIDMunicipio() == IDMunicipio) {
+                        munDto = listaMunicipio.get(i);
+                    }
                 }
-             
+
+                if (munDto.getEntidad().getIDEstado() == IDEstado) {
+                    GraficaDTO dto = new GraficaDTO();
+                    dto.setNombre(munDto.getEntidad().getNombre());
+                    dto.setCantidad((Integer) element[0]);
+                    lista.add(dto);
+                }
+
             }
             transaction.commit();
-        } catch (HibernateException he) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(GraficaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
-    
-    public static void main(String args[]){
-    
-       GraficaDAO dao=new GraficaDAO();
-       dao.datosGraficaBeneficiadosPorMunicipio(32);
+
+    public static void main(String args[]) {
+
+        GraficaDAO dao = new GraficaDAO();
+        System.out.println( "Funciona:"+ dao.datosGraficaBeneficiadosPorMunicipio(32));
     }
 }

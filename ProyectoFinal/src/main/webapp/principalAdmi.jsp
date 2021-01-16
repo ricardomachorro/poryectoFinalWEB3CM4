@@ -41,7 +41,7 @@
                     <img class="imgOpccionesLista" src="img/mujer.png">
                     <p class="card-text">Informe de los apoyos en los municipios</p>
            
-                    <a href="" class="card-link">Ver grafica del numero de beneficiados por municipio</a>
+                    <a href="ControladorAdmi?accion=graficaBeneficiadosPorMunicipio" class="card-link">Ver grafica del numero de beneficiados por municipio</a>
                     <a href="" class="card-link">Generar reporte de beneficiados por municipio</a>
                 </div>
             </div>

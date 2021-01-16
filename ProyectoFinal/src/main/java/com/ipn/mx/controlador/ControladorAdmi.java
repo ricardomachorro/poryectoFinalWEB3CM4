@@ -8,11 +8,13 @@ package com.ipn.mx.controlador;
 import com.ipn.mx.modelo.dao.ApoyosDAO;
 import com.ipn.mx.modelo.dao.BeneficiadosDAO;
 import com.ipn.mx.modelo.dao.EstadoDAO;
+import com.ipn.mx.modelo.dao.GraficaDAO;
 import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dao.VariantesApoyosDAO;
 import com.ipn.mx.modelo.dto.ApoyosDTO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
 import com.ipn.mx.modelo.dto.EstadoDTO;
+import com.ipn.mx.modelo.dto.GraficaDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
 import com.ipn.mx.modelo.entidades.Estado;
@@ -88,6 +90,9 @@ public class ControladorAdmi extends HttpServlet {
                break;
                case "guardarCambiosConfiguracionAdmi":
                     guardarCambiosConfiguracionAdmi(request,response);
+               break;
+                case "graficaBeneficiadosPorMunicipio":
+                   graficaBeneficiadosPorMunicipio(request,response);
                break;
                default :
                break;
@@ -540,6 +545,23 @@ public class ControladorAdmi extends HttpServlet {
             Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
         }
          
+    }
+
+    private void graficaBeneficiadosPorMunicipio(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            GraficaDAO graDao=new GraficaDAO();
+            HttpSession session = request.getSession();
+            EstadoDTO usuarioEstado= (EstadoDTO) session.getAttribute("usuarioEstadosDatos");
+            List<GraficaDTO> listaGrafica=graDao.datosGraficaBeneficiadosPorMunicipio(usuarioEstado.getEntidad().getIDEstado());
+            request.setAttribute("listaGrafica", listaGrafica);
+            RequestDispatcher rd = request.getRequestDispatcher("graficaBeneficiadosPorMunicipio.jsp");
+            rd.forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorAdmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }

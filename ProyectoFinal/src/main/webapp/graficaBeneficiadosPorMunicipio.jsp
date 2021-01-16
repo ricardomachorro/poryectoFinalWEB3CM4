@@ -40,6 +40,56 @@
            
         </div>
     </body>
+     <script>
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        <c:forEach items="${listaGrafica}" var="dao" varStatus="loop">
+                            '${dao.nombre}'${!loop.last ? ',' : ''}
+                        </c:forEach>
+                        
+                    ],
+                    datasets: [{
+                            label: 'Numero beneficiados',
+                            data: [
+                                <c:forEach items="${listaGrafica}" var="dao" varStatus="loop">
+                                   '${dao.cantidad}'${!loop.last ? ',' : ''}
+                               </c:forEach>
+                            ],
+                            backgroundColor: [
+                                <c:forEach items="${listaGrafica}" var="dao" varStatus="loop">
+                                   'rgba(255, 99, 132, 0.2)'${!loop.last ? ',' : ''}
+                               </c:forEach>
+                               
+                            ],
+                            borderColor: [
+                                 <c:forEach items="${listaGrafica}" var="dao" varStatus="loop">
+                                   'rgba(255, 99, 132, 1)'${!loop.last ? ',' : ''}
+                               </c:forEach>
+                                
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                      display: true,
+                      text: 'Numero de beneficiados por municipio'
+                    },
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+        </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>

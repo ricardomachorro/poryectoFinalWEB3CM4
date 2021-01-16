@@ -492,3 +492,5 @@ insert into pedidos (IDBeneficiado,NombreComercial,Laboratorio,Cantidad,FechaPed
 values(5,'Paracetamol','sssa',2,'1957-06-13','1957-06-13');
   
 select * from pedidos;*/
+
+select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio; 

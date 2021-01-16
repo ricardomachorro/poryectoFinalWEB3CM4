@@ -130,6 +130,7 @@ public class ControladorBeneficiario extends HttpServlet {
                 session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
                 session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
                 cargarPanelPrinBen(request,response);
+               
              }else{
                 request.setAttribute("mensaje", "datos incorrectos");
                  RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
@@ -147,16 +148,18 @@ public class ControladorBeneficiario extends HttpServlet {
         PedidosDAO dao=new PedidosDAO();
         try {
         List listaPedidos=dao.readAll();
+        List listaPedidosSalida=dao.readAll();
+        listaPedidosSalida.clear();
         
          RequestDispatcher rd = request.getRequestDispatcher("listaDePedidos.jsp");
            for(int i=0;i<listaPedidos.size();i++){
               PedidosDTO pedidosdto=(PedidosDTO) listaPedidos.get(i);
-              if(pedidosdto.getEntidad().getIDBeneficiado()!=((Integer) session.getAttribute("idUsuarioBeneficirio") )){
-                 listaPedidos.remove(i);
+              if(pedidosdto.getEntidad().getIDBeneficiado()==((Integer) session.getAttribute("idUsuarioBeneficirio") )){
+                 listaPedidosSalida.add(listaPedidos.get(i));
               }
               
            }
-            request.setAttribute("listaPedidos",listaPedidos);
+            request.setAttribute("listaPedidos",listaPedidosSalida);
             rd.forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,11 +200,14 @@ public class ControladorBeneficiario extends HttpServlet {
                             dto.getEntidad().setIDBeneficiado(usuariAna.getEntidad().getIDBeneficiado());
                         }
                     }
-                     HttpSession session = request.getSession();
+                 /*    HttpSession session = request.getSession();
                      session.setAttribute("idUsuarioBeneficirio",dto.getEntidad().getIDBeneficiado());
                      session.setAttribute("idMunBeneficirio",dto.getEntidad().getIDMunicipio());
-                  //   request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
-                  cargarPanelPrinBen(request,response);
+                    request.setAttribute("mensaje",dto.getEntidad().getIDBeneficiado());
+                  cargarPanelPrinBen(request,response);*/
+                 
+                   RequestDispatcher rd = request.getRequestDispatcher("ingresoBeneficiados.jsp");
+                 rd.forward(request, response);
                   //  request.setAttribute("mensaje",dto.getEntidad());
                   //   cargarDatosSignUpBene(request, response);
                      
@@ -241,6 +247,10 @@ public class ControladorBeneficiario extends HttpServlet {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
             }*/
         } catch (SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
          

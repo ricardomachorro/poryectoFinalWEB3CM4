@@ -40,6 +40,11 @@
                     <h5 class="card-title">Lista de pedidos </h5>
                     <img class="imgOpccionesLista" src="img/tableta.png">
                     <img class="imgOpccionesLista" src="img/medicamento.png">
+                    <p class="card-text">Nombre usuario:<c:out value="${nombreUsuario}"/></p>
+                    <p class="card-text">Edad usuario:<c:out value="${edadUsuario}"/></p>
+                    <p class="card-text">Calle usuario:<c:out value="${calleUsuario}"/></p>
+                    <p class="card-text">Municipio usuario:<c:out value="${municipioUsuario}"/></p>
+                    <p class="card-text">Estado usuario:<c:out value="${estadoUsuario}"/></p>
                <!--     <p class="card-text">Aqui hay unas opcciones extra para las clases de los pedidos</p>
                     <a href="" class="card-link">Ver los 5 medicamentos más pedidos en tu municipio</a>
                     <a href="" class="card-link">Generar comprobante de pedidos hechos hasta la fecha</a>-->

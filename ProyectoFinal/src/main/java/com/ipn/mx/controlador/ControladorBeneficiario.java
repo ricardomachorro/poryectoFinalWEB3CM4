@@ -11,6 +11,7 @@ import com.ipn.mx.modelo.dao.MunicipioDAO;
 import com.ipn.mx.modelo.dao.PedidosDAO;
 import com.ipn.mx.modelo.dao.VariantesApoyosDAO;
 import com.ipn.mx.modelo.dto.BeneficiadosDTO;
+import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.PedidosDTO;
 import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
@@ -162,7 +163,24 @@ public class ControladorBeneficiario extends HttpServlet {
               }
               
            }
+            BeneficiadosDAO benDao=new BeneficiadosDAO();
+            BeneficiadosDTO benDat=new BeneficiadosDTO();
+            MunicipioDAO munDao=new MunicipioDAO();
+            MunicipioDTO munDto=new MunicipioDTO();
+            EstadoDAO estDao=new EstadoDAO();
+            EstadoDTO estDto=new EstadoDTO();
+            benDat.getEntidad().setIDBeneficiado((Integer) session.getAttribute("idUsuarioBeneficirio"));
+            benDat=benDao.read(benDat);
+            munDto.getEntidad().setIDMunicipio(benDat.getEntidad().getIDMunicipio());
+            munDto=munDao.read(munDto);
+            estDto.getEntidad().setIDEstado(munDto.getEntidad().getIDEstado());
+            estDto=estDao.read(estDto);
             request.setAttribute("listaPedidos",listaPedidosSalida);
+            request.setAttribute("nombreUsuario", benDat.getEntidad().getNombreUsuario());
+            request.setAttribute("edadUsuario", benDat.getEntidad().getEdad());
+            request.setAttribute("calleUsuario", benDat.getEntidad().getCalle());
+            request.setAttribute("municipioUsuario", munDto.getEntidad().getNombre());
+            request.setAttribute("estadoUsuario", estDto.getEntidad().getNombre());
             rd.forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
@@ -188,6 +206,7 @@ public class ControladorBeneficiario extends HttpServlet {
                       usuarioUnico=false;
                     }
                 }
+                
                 if(usuarioUnico){
                     dto.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
                     dto.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));

@@ -45,8 +45,9 @@
                     <p class="card-text">Calle usuario:<c:out value="${calleUsuario}"/></p>
                     <p class="card-text">Municipio usuario:<c:out value="${municipioUsuario}"/></p>
                     <p class="card-text">Estado usuario:<c:out value="${estadoUsuario}"/></p>
+                     <a href="ControladorBeneficiario?accion=reportePedidos" class="card-link">Hacer reporte/comprobante de pedidos hechos hasta la fecha</a>
                <!--     <p class="card-text">Aqui hay unas opcciones extra para las clases de los pedidos</p>
-                    <a href="" class="card-link">Ver los 5 medicamentos más pedidos en tu municipio</a>
+                   
                     <a href="" class="card-link">Generar comprobante de pedidos hechos hasta la fecha</a>-->
                 </div>
             </div>

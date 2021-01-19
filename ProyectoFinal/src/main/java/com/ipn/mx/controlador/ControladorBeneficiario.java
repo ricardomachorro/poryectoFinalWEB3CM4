@@ -15,13 +15,22 @@ import com.ipn.mx.modelo.dto.EstadoDTO;
 import com.ipn.mx.modelo.dto.MunicipioDTO;
 import com.ipn.mx.modelo.dto.PedidosDTO;
 import com.ipn.mx.modelo.dto.VariantesApoyosDTO;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,6 +97,9 @@ public class ControladorBeneficiario extends HttpServlet {
                break;
                case "formularioActualizarDatosBeneficiario":
                    formularioActualizarDatosBeneficiario(request, response);
+               break;
+               case "reportePedidos":
+                   reportePedidos(request, response);
                break;
                default :
                break;
@@ -200,14 +212,24 @@ public class ControladorBeneficiario extends HttpServlet {
             if(munDto.getEntidad().getCodigo().equals(request.getParameter("txtCodigo"))){
                 List<BeneficiadosDTO> listaBen=dao.readAll();
                 boolean usuarioUnico=true;
+                boolean nombreIgualAnterior=false;
                 for(int i=0;i<listaBen.size();i++){
                     BeneficiadosDTO usuariAna=(BeneficiadosDTO)listaBen.get(i);
                     if(usuariAna.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre"))){
                       usuarioUnico=false;
                     }
                 }
-                
-                if(usuarioUnico){
+                if(!(request.getParameter("txtIdBeneficiario").isBlank())){
+                   HttpSession session = request.getSession();
+                   dto.getEntidad().setIDBeneficiado((Integer) session.getAttribute("idUsuarioBeneficirio") );
+                   dto=dao.read(dto);
+                   if(dto.getEntidad().getNombreUsuario().equals(request.getParameter("txtNombre"))){
+                        nombreIgualAnterior=true;
+                   }else{
+                       nombreIgualAnterior=false;
+                   }
+                }
+                if(usuarioUnico || nombreIgualAnterior){
                     dto.getEntidad().setNombreUsuario(request.getParameter("txtNombre"));
                     dto.getEntidad().setEdad(Integer.parseInt(request.getParameter("txtEdad")));
                     dto.getEntidad().setCalle(request.getParameter("txtCalle"));
@@ -465,6 +487,71 @@ public class ControladorBeneficiario extends HttpServlet {
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+
+    private void reportePedidos(HttpServletRequest request, HttpServletResponse response) {
+        //To change body of generated methods, choose Tools | Templates.
+         response.setContentType("application/pdf");
+        try {
+            Font bfBold24 = new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD, new BaseColor(0, 0, 0));
+            Font bfBold12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC, new BaseColor(0, 0, 0));
+            Font bf12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
+            HttpSession session = request.getSession();
+            int idBeneficiario=(Integer)session.getAttribute("idUsuarioBeneficirio");
+            BeneficiadosDAO benDao=new BeneficiadosDAO();
+            BeneficiadosDTO benDto=new BeneficiadosDTO();
+            benDto.getEntidad().setIDBeneficiado(idBeneficiario);
+            benDto=benDao.read(benDto);
+            Document document = new Document();
+            PdfWriter.getInstance(document, response.getOutputStream());
+            document.addAuthor(benDto.getEntidad().getNombreUsuario());
+            document.addCreationDate();
+            document.addSubject("Using iText");
+            document.addKeywords("Java, PDF, iText");
+            document.addCreator("Proyecto sistema de apoyos 3CM4");
+            document.addTitle("Reporte pedidos PDF");
+            document.open();
+            document.add(new Paragraph("Lista de Pedidos \n", bfBold24));
+            document.add(new Paragraph("Beneficiado solicitante: " + benDto.getEntidad().getNombreUsuario() + " \n", bfBold12));
+            Date date = new Date();
+            document.add(new Paragraph("Fecha del reporte:"+date.toString(), bfBold12));
+            document.add(new Paragraph("\n \n \n", bfBold12));
+            PedidosDAO dao = new PedidosDAO();
+            List listaPedidos = dao.readAll();
+             List listaPedidosBeneficiado = dao.readAll();
+             listaPedidosBeneficiado.clear();
+            for(int i=0;i<listaPedidos.size();i++){
+              PedidosDTO pedDTO=(PedidosDTO)listaPedidos.get(i);
+              if(pedDTO.getEntidad().getIDBeneficiado()==idBeneficiario){
+                listaPedidosBeneficiado.add(listaPedidos.get(i));
+              }
+            }
+            PdfPTable table = new PdfPTable(5);
+            table.addCell("IDPedido");
+            table.addCell("Nombre comercial");
+            table.addCell("Laboratorio");
+            table.addCell("Cantidad");
+            table.addCell("Mes de entrega");
+            for (int i = 0; i < listaPedidosBeneficiado.size(); i++) {
+                PedidosDTO pedTabla = (PedidosDTO) listaPedidosBeneficiado.get(i);
+                table.addCell(String.valueOf(pedTabla.getEntidad().getIDPedido()));
+                table.addCell(pedTabla.getEntidad().getNombreComercial());
+                table.addCell(pedTabla.getEntidad().getLaboratorio());
+               table.addCell(String.valueOf(pedTabla.getEntidad().getCantidad()));
+               table.addCell(pedTabla.getEntidad().getMesEntrega());
+            }
+            document.add(table);
+            document.close();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException | IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
 

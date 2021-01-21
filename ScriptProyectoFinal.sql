@@ -36,12 +36,13 @@ create table Apoyos (
 
 CREATE table Beneficiados(
    IDBeneficiado serial primary key,
-   NombreUsaurio varchar (30) not null,
+   NombreUsuario varchar (30) not null,
    Contra varchar (50) not null,
    Calle varchar (60) not null,
    Edad int not null,
    Correo varchar (90),
    IDMunicipio int not null,
+   imagen varchar(120) ,
   /* Imagen bytea not null,*/
    foreign key (IDMunicipio)
   references Municipio(IDMunicipio)

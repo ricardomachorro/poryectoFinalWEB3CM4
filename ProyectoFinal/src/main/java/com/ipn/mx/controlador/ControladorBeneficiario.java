@@ -193,6 +193,7 @@ public class ControladorBeneficiario extends HttpServlet {
             request.setAttribute("calleUsuario", benDat.getEntidad().getCalle());
             request.setAttribute("municipioUsuario", munDto.getEntidad().getNombre());
             request.setAttribute("estadoUsuario", estDto.getEntidad().getNombre());
+            request.setAttribute("imagenUsuario", benDat.getEntidad().getImagen());
             rd.forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
@@ -236,8 +237,29 @@ public class ControladorBeneficiario extends HttpServlet {
                     dto.getEntidad().setCorreo(request.getParameter("txtMail"));
                     dto.getEntidad().setContra(request.getParameter("txtPassword"));
                     dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
-                   
+                 /*   Part filePart = request.getPart("file");
+                    Date fecha=new Date();
+                    String folderName =  "imagenesUsuario";
+                    String nombreImagen=filePart.getSubmittedFileName()+
+                            fecha.getYear()+
+                            fecha.getMonth()+
+                            fecha.getDay()+
+                            fecha.getHours()+
+                            fecha.getMinutes()+
+                            fecha.getSeconds();
+                     File file = new File(folderName+ File.pathSeparator+nombreImagen);
+                    if (!file.exists()) {
+                        file.mkdirs();
+                      }
+                    OutputStream out = null;
+                    InputStream filecontent = null;
+                    out = new FileOutputStream(new File(folderName + File.separator
+                     + nombreImagen));
+                     filecontent = filePart.getInputStream();*/
+                     
+                    
                     if(request.getParameter("txtIdBeneficiario").isBlank()){
+                        
                        dao.create(dto);
                    /*  listaBen=dao.readAll();
                       for(int i=0;i<listaBen.size();i++){
@@ -554,5 +576,6 @@ public class ControladorBeneficiario extends HttpServlet {
         
         
     }
+    
 
 }

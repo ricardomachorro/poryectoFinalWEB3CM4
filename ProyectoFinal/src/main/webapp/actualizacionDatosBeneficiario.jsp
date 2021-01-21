@@ -61,10 +61,10 @@
                     <input type="mail" class="form-control" id="txtMail" name="txtMail" required
                             value="<c:out value="${dtoBeneficiario.entidad.correo}" />">
                 </div>
-               <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
                     <input type="file" class="form-control" id="txtFile" name="txtFile" >
-                </div>-->
+                </div>
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
                     <input type="password" class="form-control" id="txtPassword" name="txtPassword" required>

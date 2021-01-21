@@ -242,31 +242,25 @@ public class ControladorBeneficiario extends HttpServlet {
                     dto.getEntidad().setCorreo(request.getParameter("txtMail"));
                     dto.getEntidad().setContra(request.getParameter("txtPassword"));
                     dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
-      /*             org.apache.commons.fileupload.FileItemFactory file = new org.apache.commons.fileupload.disk.DiskFileItemFactory();
-        org.apache.commons.fileupload.servlet.ServletFileUpload fileUpload = new org.apache.commons.fileupload.servlet.ServletFileUpload(file);
-        List items = fileUpload.parseRequest(request);
-         ArrayList<String> lista = new ArrayList<>();
-         Date dateHoy=new Date();
-        
-         
-        for (int i = 0; i < items.size(); i++) {
-                    org.apache.commons.fileupload.FileItem fileItem = (org.apache.commons.fileupload.FileItem) items.get(i);
-                    if (!fileItem.isFormField()) {
-                        File f = new File("imagenesUsuario"+File.separator+
-                 dateHoy.getYear()+dateHoy.getMonth()+
-                 dateHoy.getDay()+dateHoy.getHours()+
-                 dateHoy.getMinutes()+dateHoy.getSeconds() + fileItem.getName());
-                       if(!f.exists()){
-                         f.mkdirs();
-                       }
-                        fileItem.write(f);
-                        dto.getEntidad().setImagen(f.getAbsolutePath());
-                    }else{
-                       
-                         lista.add(fileItem.getString());
+                   String SAVE_DIR = "uploadFiles";
+                      // gets absolute path of the web application
+                   String appPath = request.getServletContext().getRealPath(""); 
+                    // constructs path of the directory to save uploaded file
+                    String savePath = appPath + SAVE_DIR;
+                    
+                     // creates the save directory if it does not exists
+                    File fileSaveDir = new File(savePath);
+                    if (!fileSaveDir.exists()) {
+                        fileSaveDir.mkdir();
                     }
-                }
-                    */
+                    
+                   Part partArchivoImg=request.getPart("txtFile");
+                     String nombreImg = extractFileName(partArchivoImg);
+                     nombreImg = new File(nombreImg).getName();
+                    partArchivoImg.write(savePath + File.separator + nombreImg);
+                     dto.getEntidad().setImagen(savePath + File.separator + nombreImg);
+                     
+                    
                     if(request.getParameter("txtIdBeneficiario").isBlank()){
                        request.setAttribute("mensaje", dto.getEntidad().getImagen());
                        dao.create(dto);
@@ -586,6 +580,17 @@ public class ControladorBeneficiario extends HttpServlet {
         }
         
         
+    }
+    
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
     
 

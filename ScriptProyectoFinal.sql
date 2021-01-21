@@ -42,7 +42,7 @@ CREATE table Beneficiados(
    Edad int not null,
    Correo varchar (90),
    IDMunicipio int not null,
-   imagen varchar(120) ,
+   imagen varchar(920) ,
   /* Imagen bytea not null,*/
    foreign key (IDMunicipio)
   references Municipio(IDMunicipio)
@@ -494,4 +494,4 @@ values(5,'Paracetamol','sssa',2,'1957-06-13','1957-06-13');
   
 select * from pedidos;*/
 
-select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio; 
+/*select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio; */

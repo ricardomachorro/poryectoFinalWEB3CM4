@@ -129,7 +129,7 @@ public class BeneficiadosDAO {
             dto.getEntidad().setCorreo("fdsdsdfs");
             dto.getEntidad().setContra("1234");
             dto.getEntidad().setIDMunicipio(126);
-            
+           
             dao.create(dto);
         } catch (SQLException ex) {
             Logger.getLogger(BeneficiadosDAO.class.getName()).log(Level.SEVERE, null, ex);

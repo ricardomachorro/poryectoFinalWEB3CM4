@@ -38,7 +38,7 @@
             <div class="card cartaOpccionesExtra">
                 <div class="card-body">
                     <h5 class="card-title">Lista de pedidos </h5>
-                    <img class="imgOpccionesLista" src="<c:out value="${imagenUsuario}"/>"  >
+                    <img class="imgOpccionesLista" src="D:\5semestreDocsGrandes\WebAplicationDocGrandes\ProyectoFinalSemestre\ArchivosDeGitNormal\poryectoFinalWEB3CM4\ProyectoFinal\target\ProyectoFinal-1.0-SNAPSHOT\uploadFiles\imagenEdmodo.png"  >
                <!--     <img class="imgOpccionesLista" src="img/medicamento.png">-->
                     <p class="card-text">Nombre usuario:<c:out value="${nombreUsuario}"/></p>
                     <p class="card-text">Edad usuario:<c:out value="${edadUsuario}"/></p>

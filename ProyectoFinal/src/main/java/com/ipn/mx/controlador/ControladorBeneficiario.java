@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,6 +44,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -237,29 +242,33 @@ public class ControladorBeneficiario extends HttpServlet {
                     dto.getEntidad().setCorreo(request.getParameter("txtMail"));
                     dto.getEntidad().setContra(request.getParameter("txtPassword"));
                     dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
-                 /*   Part filePart = request.getPart("file");
-                    Date fecha=new Date();
-                    String folderName =  "imagenesUsuario";
-                    String nombreImagen=filePart.getSubmittedFileName()+
-                            fecha.getYear()+
-                            fecha.getMonth()+
-                            fecha.getDay()+
-                            fecha.getHours()+
-                            fecha.getMinutes()+
-                            fecha.getSeconds();
-                     File file = new File(folderName+ File.pathSeparator+nombreImagen);
-                    if (!file.exists()) {
-                        file.mkdirs();
-                      }
-                    OutputStream out = null;
-                    InputStream filecontent = null;
-                    out = new FileOutputStream(new File(folderName + File.separator
-                     + nombreImagen));
-                     filecontent = filePart.getInputStream();*/
-                     
-                    
+      /*             org.apache.commons.fileupload.FileItemFactory file = new org.apache.commons.fileupload.disk.DiskFileItemFactory();
+        org.apache.commons.fileupload.servlet.ServletFileUpload fileUpload = new org.apache.commons.fileupload.servlet.ServletFileUpload(file);
+        List items = fileUpload.parseRequest(request);
+         ArrayList<String> lista = new ArrayList<>();
+         Date dateHoy=new Date();
+        
+         
+        for (int i = 0; i < items.size(); i++) {
+                    org.apache.commons.fileupload.FileItem fileItem = (org.apache.commons.fileupload.FileItem) items.get(i);
+                    if (!fileItem.isFormField()) {
+                        File f = new File("imagenesUsuario"+File.separator+
+                 dateHoy.getYear()+dateHoy.getMonth()+
+                 dateHoy.getDay()+dateHoy.getHours()+
+                 dateHoy.getMinutes()+dateHoy.getSeconds() + fileItem.getName());
+                       if(!f.exists()){
+                         f.mkdirs();
+                       }
+                        fileItem.write(f);
+                        dto.getEntidad().setImagen(f.getAbsolutePath());
+                    }else{
+                       
+                         lista.add(fileItem.getString());
+                    }
+                }
+                    */
                     if(request.getParameter("txtIdBeneficiario").isBlank()){
-                        
+                       request.setAttribute("mensaje", dto.getEntidad().getImagen());
                        dao.create(dto);
                    /*  listaBen=dao.readAll();
                       for(int i=0;i<listaBen.size();i++){
@@ -338,6 +347,8 @@ public class ControladorBeneficiario extends HttpServlet {
         } catch (ServletException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
         }
          

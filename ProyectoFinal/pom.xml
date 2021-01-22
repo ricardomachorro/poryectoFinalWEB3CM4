@@ -21,7 +21,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.2.18</version>
@@ -74,7 +74,7 @@
             <artifactId>jasperreports</artifactId>
             <version>6.16.0</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.liferay</groupId>
             <artifactId>org.apache.commons.fileupload</artifactId>
             <version>1.2.2.LIFERAY-PATCHED-1</version>
@@ -122,6 +122,12 @@
                                     <artifactId>javaee-endorsed-api</artifactId>
                                     <version>7.0</version>
                                     <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>9.0.27.1</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

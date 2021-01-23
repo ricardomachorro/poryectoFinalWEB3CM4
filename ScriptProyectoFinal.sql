@@ -42,8 +42,8 @@ CREATE table Beneficiados(
    Edad int not null,
    Correo varchar (90),
    IDMunicipio int not null,
-   imagen varchar(920) ,
-  /* Imagen bytea not null,*/
+  /* Imagen varchar(920) ,*/
+   Imagen bytea ,
    foreign key (IDMunicipio)
   references Municipio(IDMunicipio)
   on update cascade on delete cascade
@@ -96,7 +96,7 @@ create table VariantesApoyos(
 );
 
 /*drop table variantesApoyos;*/
-
+select * from variantesapoyos;
 insert into estado(Nombre,Clave,Abrev,NombreUsuarioEncargado,Contra)
 values ('Aguascalientes','1234','Aguas.','rick','1234');
 insert into estado(Nombre,Clave,Abrev,NombreUsuarioEncargado,Contra)

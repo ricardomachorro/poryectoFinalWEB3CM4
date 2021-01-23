@@ -288,7 +288,7 @@ public class ControladorAdmi extends HttpServlet {
          VariantesApoyosDAO dao=new VariantesApoyosDAO();
          try{
              
-           if(request.getParameter("idVariacionApoyo").isBlank()){
+           if(request.getParameter("idVariacionApoyo").equals("")){
             dao.create(varApoyoEntrada);
             }else{
              varApoyoEntrada.getEntidad().setIDVarianteApoyo(Integer.parseInt(request.getParameter("idVariacionApoyo")));

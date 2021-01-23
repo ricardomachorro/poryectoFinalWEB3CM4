@@ -7,10 +7,10 @@
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <!-- JDBC Database connection settings postgres local -->
         <property name="connection.url">
-            jdbc:postgresql://localhost:5432/ProyectoFinal
+            jdbc:postgresql://ec2-52-54-174-5.compute-1.amazonaws.com:5432/d6k68l0ugmoi2f
         </property>
-        <property name="connection.username">postgres</property>
-        <property name="connection.password">ramv1357</property>
+        <property name="connection.username">eestikkgpcoykj</property>
+        <property name="connection.password">ad242745eec662d133081b9050c6e550dea9e2427dd546ddc0f614b5045c7a54</property>
         
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>

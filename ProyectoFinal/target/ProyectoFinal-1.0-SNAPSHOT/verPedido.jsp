@@ -29,7 +29,7 @@
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=nuevoPedido" >Hacer nuevo pedido de medicamento</a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=formularioActualizarDatosBeneficiario" >Actualizar datos del beneficiado</a>
                     
-                    <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
+                      <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>

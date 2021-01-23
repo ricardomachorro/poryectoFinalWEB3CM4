@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
@@ -105,6 +106,9 @@ public class ControladorBeneficiario extends HttpServlet {
                break;
                case "reportePedidos":
                    reportePedidos(request, response);
+               break;
+               case "cerrarSesion":
+                   cerrarSesion(request, response);
                break;
                default :
                break;
@@ -198,7 +202,7 @@ public class ControladorBeneficiario extends HttpServlet {
             request.setAttribute("calleUsuario", benDat.getEntidad().getCalle());
             request.setAttribute("municipioUsuario", munDto.getEntidad().getNombre());
             request.setAttribute("estadoUsuario", estDto.getEntidad().getNombre());
-            request.setAttribute("imagenUsuario", benDat.getEntidad().getImagen());
+            request.setAttribute("imagenUsuario", session.getAttribute("idUsuarioBeneficirio"));
             rd.forward(request, response);
         } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,7 +229,7 @@ public class ControladorBeneficiario extends HttpServlet {
                       usuarioUnico=false;
                     }
                 }
-                if(!(request.getParameter("txtIdBeneficiario").isBlank())){
+                if(!(request.getParameter("txtIdBeneficiario").equals(""))){
                    HttpSession session = request.getSession();
                    dto.getEntidad().setIDBeneficiado((Integer) session.getAttribute("idUsuarioBeneficirio") );
                    dto=dao.read(dto);
@@ -242,27 +246,21 @@ public class ControladorBeneficiario extends HttpServlet {
                     dto.getEntidad().setCorreo(request.getParameter("txtMail"));
                     dto.getEntidad().setContra(request.getParameter("txtPassword"));
                     dto.getEntidad().setIDMunicipio(Integer.parseInt(request.getParameter("selectMunicipio")));
-                   String SAVE_DIR = "uploadFiles";
-                      // gets absolute path of the web application
-                   String appPath = request.getServletContext().getRealPath(""); 
-                    // constructs path of the directory to save uploaded file
-                    String savePath = appPath + SAVE_DIR;
+                   Part filePart = request.getPart("txtFile");
+                  /* OutputStream out = null;
+                    out = new FileOutputStream(new File(extractFileName(filePart)));
+                   InputStream filecontent = filePart.getInputStream();
+                    int read = 0;
+                    final byte[] bytes = new byte[1024];
+
+                   while ((read = filecontent.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }*/
+                    InputStream is = filePart.getInputStream();
+                    dto.getEntidad().setImagen(IOUtils.toByteArray(is));
                     
-                     // creates the save directory if it does not exists
-                    File fileSaveDir = new File(savePath);
-                    if (!fileSaveDir.exists()) {
-                        fileSaveDir.mkdir();
-                    }
-                    
-                   Part partArchivoImg=request.getPart("txtFile");
-                     String nombreImg = extractFileName(partArchivoImg);
-                     nombreImg = new File(nombreImg).getName();
-                    partArchivoImg.write(savePath + File.separator + nombreImg);
-                     dto.getEntidad().setImagen(savePath + File.separator + nombreImg);
-                     
-                    
-                    if(request.getParameter("txtIdBeneficiario").isBlank()){
-                       request.setAttribute("mensaje", dto.getEntidad().getImagen());
+                    if(request.getParameter("txtIdBeneficiario").equals("")){
+                    //   request.setAttribute("mensaje", nombreArchivo);
                        dao.create(dto);
                    /*  listaBen=dao.readAll();
                       for(int i=0;i<listaBen.size();i++){
@@ -295,7 +293,7 @@ public class ControladorBeneficiario extends HttpServlet {
                      
                 }else{
                     request.setAttribute("mensaje","Nombre de Usuario ya usado");
-                    if(request.getParameter("txtIdBeneficiario").isBlank()){
+                    if(request.getParameter("txtIdBeneficiario").equals("")){
                        cargarDatosSignUpBene(request, response);
                     }else{
                        formularioActualizarDatosBeneficiario(request, response);
@@ -306,7 +304,7 @@ public class ControladorBeneficiario extends HttpServlet {
                
             }else{
                  request.setAttribute("mensaje","codigo incorrecto");
-                if(request.getParameter("txtIdBeneficiario").isBlank()){
+                if(request.getParameter("txtIdBeneficiario").equals("")){
                        cargarDatosSignUpBene(request, response);
                     }else{
                         formularioActualizarDatosBeneficiario(request, response);
@@ -451,7 +449,7 @@ public class ControladorBeneficiario extends HttpServlet {
             pedDto.getEntidad().setNombreComercial(varApoDto.getEntidad().getNombreComercial());
             pedDto.getEntidad().setCantidad(Integer.parseInt(request.getParameter("txtCantidad")));
             pedDto.getEntidad().setMesEntrega(request.getParameter("selMesEntrega"));
-            if(request.getParameter("idPedido").isBlank()){
+            if(request.getParameter("idPedido").equals("")){
               pedDao.create(pedDto);
             }else{
                pedDto.getEntidad().setIDPedido(Integer.parseInt(request.getParameter("idPedido")));
@@ -591,6 +589,20 @@ public class ControladorBeneficiario extends HttpServlet {
             }
         }
         return "";
+    }
+
+    private void cerrarSesion(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            //To change body of generated methods, choose Tools | Templates.
+            HttpSession session = request.getSession();
+            session.invalidate();
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+            rd.forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorBeneficiario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 

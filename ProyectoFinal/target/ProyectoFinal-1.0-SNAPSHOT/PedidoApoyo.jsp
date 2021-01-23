@@ -30,7 +30,7 @@
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=nuevoPedido" >Hacer nuevo pedido de medicamento</a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=formularioActualizarDatosBeneficiario" >Actualizar datos del beneficiado</a>
                     
-                    <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
+                    <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="selMed">Medicamento</label>
                     <select class="form-control" id="selVarApoyo" name="selVarApoyo" required>
-                        <option>Seleccione medicamento</option>
+                        <option disabled>Seleccione medicamento</option>
                         <c:forEach var="dtoVA" 
                                    items="${listaVarianteApoyos}">
                             <option value="<c:out value="${dtoVA.entidad.IDVarianteApoyo}" />" >
@@ -59,6 +59,7 @@
                   <div class="form-group">
                     <label for="txtMesEntrega">Mes Entrega</label>
                     <select required class="form-control" id="selMesEntrega" name="selMesEntrega">
+                        <option disabled>Seleccione mes de entrega</option>
                         <option value="Enero" <c:if test="${pedidoDto.entidad.mesEntrega=='Enero'}"> 
                                     <c:out value="selected" /></c:if>>Enero</option>
                         <option value="Febrero" <c:if test="${pedidoDto.entidad.mesEntrega=='Febrero'}">

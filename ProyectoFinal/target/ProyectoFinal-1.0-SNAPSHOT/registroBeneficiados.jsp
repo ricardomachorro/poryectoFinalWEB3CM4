@@ -56,7 +56,7 @@
                 </div>
                <div class="form-group">
                     <label for="txtFile">Imagen Usuario</label>
-                    <input type="file" class="form-control" id="txtFile" name="txtFile" >
+                    <input type="file" class="form-control" id="txtFile" name="txtFile" required >
                 </div>
                 <div class="form-group">
                     <label for="txtPassword">Contraseña</label>
@@ -67,7 +67,7 @@
                     <select value="0" 
                             name="selectEstado" 
                             id="selectEstado" class="form-control" required>
-                        <option >Seleccione estado</option>
+                        <option disabled >Seleccione estado</option>
                         <c:forEach
                             var="dtoEstados"
                             items="${listaEstados}">
@@ -79,8 +79,8 @@
                     <label for="selMunicipio">Municipio</label>
                     <select class="form-control"
                             id="selectMunicipio"
-                            name="selectMunicipio" class="form-control" required>
-                        <option IDEstado="0">Seleccione municipio</option>
+                            name="selectMunicipio" class="form-control"  required>
+                        <option IDEstado="0" disabled>Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipios"
                             items="${listaMunicipios}">

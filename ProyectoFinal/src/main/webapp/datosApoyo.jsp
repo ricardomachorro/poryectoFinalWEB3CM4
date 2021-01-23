@@ -57,7 +57,7 @@
                     <select class="form-control" 
                             name="selMunicipio" 
                             id="selMunicipio">
-                        <option>Seleccione municipio</option>
+                        <option disabled>Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipio"
                             items="${listaMunicipios}">
@@ -75,7 +75,7 @@
                     <select class="form-control"
                             name="selApoyo" 
                             id="selApoyo">
-                        <option>Seleccione apoyo</option>
+                        <option disabled>Seleccione apoyo</option>
                        <c:forEach
                             var="dtoApoyos"
                             items="${listaApoyos}">

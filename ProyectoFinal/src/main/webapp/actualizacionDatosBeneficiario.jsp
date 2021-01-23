@@ -31,7 +31,7 @@
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=nuevoPedido" >Hacer nuevo pedido de medicamento</a>
                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=formularioActualizarDatosBeneficiario" >Actualizar datos del beneficiado</a>
                     
-                    <a class="nav-link textoNavBarGeneral" href="" >Cerrar sesión</a>
+                     <a class="nav-link textoNavBarGeneral" href="ControladorBeneficiario?accion=cerrarSesion" >Cerrar sesión</a>
                 </div>
             </div>
         </nav>
@@ -74,7 +74,7 @@
                     <select required value="0" 
                             name="selectEstado" 
                             id="selectEstado" class="form-control">
-                        <option >Seleccione estado</option>
+                        <option disabled >Seleccione estado</option>
                         <c:forEach
                             var="dtoEstados"
                             items="${listaEstados}">
@@ -87,7 +87,7 @@
                     <select required class="form-control"
                             id="selectMunicipio"
                             name="selectMunicipio" class="form-control">
-                        <option IDEstado="0">Seleccione municipio</option>
+                        <option IDEstado="0" disabled>Seleccione municipio</option>
                         <c:forEach
                             var="dtoMunicipios"
                             items="${listaMunicipios}">

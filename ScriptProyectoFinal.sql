@@ -486,6 +486,6 @@ values(5,'Paracetamol','sssa',2,'Septiembre');*/
 
 select * from pedidos;
   
-select * from pedidos;*/
+select * from pedidos;
 
 /*select IDMunicipio,count(IDBeneficiado) as conteo from beneficiados group by idmunicipio; */
